@@ -1,0 +1,36 @@
+/* src/app/intro/intro.component.css */
+
+.intro-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    text-align: left;
+  }
+  
+  .intro-text {
+    max-width: 500px;
+  }
+  
+  .intro-text h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #3f51b5;
+  }
+  
+  .intro-text p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #555;
+  }
+  
+  .intro-image img {
+    max-width: 500px;
+    border-radius: 8px;
+  }
+  
+  button {
+    margin-top: 20px;
+  }
+  
