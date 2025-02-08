@@ -7,6 +7,7 @@ import { NavmenuComponent } from './modules/components/navmenu/navmenu.component
 import { SharedModule } from './shared/shared.module';
 import { ToolbarComponent } from './modules/components/toolbar/toolbar.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { StudentsModule } from './modules/dashboard/pages/students/students.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   imports: [
     BrowserModule,
     AppRoutingModule,
+    StudentsModule,
     SharedModule
   
   ],
