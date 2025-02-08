@@ -4,7 +4,8 @@ import { Student } from '../../models/student.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { generateRandomString } from '../../../../../../shared/utils';
-
+import { MatDialog } from '@angular/material/dialog';
+import { StudentDialogFormComponent } from '../student-dialog-form/student-dialog-form.component';
 @Component({
   selector: 'app-students-form',
   standalone: false,
@@ -23,10 +24,13 @@ export class StudentsFormComponent implements OnInit {
 
   
   constructor(
+    public dialog: MatDialog,
     private fb: FormBuilder, 
     private studentsService: StudentsService,
     private snackBar: MatSnackBar
-  ) {
+  ) 
+  
+  {
     this.studentForm = this.fb.group({
           id: [generateRandomString(6),Validators.required],
           name: ['', Validators.required],
@@ -38,6 +42,7 @@ export class StudentsFormComponent implements OnInit {
           course: ['', Validators.required],
         });
    }
+   
 
   // Función al enviar el formulario (agregar un estudiante)
   onSubmit(): void {
@@ -95,4 +100,18 @@ export class StudentsFormComponent implements OnInit {
       this.filteredDataSource = this.dataSource; // Si no hay filtro, muestra todos los estudiantes
     }
   }
+
+  // Función para ver los detalles del estudiante
+viewDetails(student: Student): void {
+  // Aquí puedes abrir un diálogo con los detalles del estudiante
+  const dialogRef = this.dialog.open(StudentDialogFormComponent, {
+    width: '400px',
+    data: student
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Aquí puedes manejar lo que sucede después de que se cierra el diálogo, si es necesario
+    console.log('Detalles del estudiante cerrados');
+  });
+}
 }

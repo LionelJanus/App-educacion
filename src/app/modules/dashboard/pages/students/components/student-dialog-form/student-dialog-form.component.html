@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Detalles del Estudiante</h1>
+<div mat-dialog-content>
+  <p><strong>Nombre:</strong> {{ data.name }}</p>
+  <p><strong>Apellido:</strong> {{ data.lastname }}</p>
+  <p><strong>Edad:</strong> {{ data.age }}</p>
+  <p><strong>Email:</strong> {{ data.email }}</p>
+  <p><strong>País:</strong> {{ data.country }}</p>
+  <p><strong>Dirección:</strong> {{ data.address }}</p>
+  <p><strong>Curso:</strong> {{ data.course }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Cerrar</button>
+</div>
