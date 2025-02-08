@@ -1,0 +1,40 @@
+<mat-sidenav-container class="sidenav-container">
+   
+    <!-- Sidenav -->
+    <mat-sidenav #sidenav mode="side" class="sidenav" position="end">
+      <app-navmenu></app-navmenu>  
+    </mat-sidenav>
+  
+    <!-- Contenido Principal -->
+    <mat-sidenav-content>
+      <mat-toolbar style="justify-content: flex-end;">
+        <span style="padding: 40px;">Coder</span>
+  
+       
+        <!-- Botón de usuario -->
+        <button mat-icon-button [matMenuTriggerFor]="userMenu" style="width: fit-content;">
+          <mat-icon>person</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>login</mat-icon>
+            <span>Sign In</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>logout</mat-icon>
+            <span>Log Out</span>
+          </button>
+        </mat-menu>
+  
+        <!-- Botón que abre el sidenav -->
+        <button (click)="sidenav.toggle()" mat-icon-button aria-label="Toggle sidenav">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </mat-toolbar>
+  
+      <!-- Aquí iría el contenido principal de la página -->
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

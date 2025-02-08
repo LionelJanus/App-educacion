@@ -1,0 +1,20 @@
+.sidenav-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  ::ng-deep .mdc-list-item__primary-text{
+    display: flex;
+    justify-content: flex-start;
+    
+  }
+  
+  .sidenav {
+    width: 250px;
+  }
+  
+  .content {
+    padding: 20px;
+  }
+  
