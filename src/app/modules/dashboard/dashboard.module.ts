@@ -6,13 +6,15 @@ import { NavmenuComponent } from '../components/navmenu/navmenu.component';
 import { DashboardComponent } from './dashboard.component';
 import { HomeComponent } from './pages/home/home.component';
 import { StudentsComponent } from './pages/students/students.component';
+import { CoursesComponent } from './pages/courses/courses.component';
 
 
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    
   ],
   imports: [
     CommonModule,

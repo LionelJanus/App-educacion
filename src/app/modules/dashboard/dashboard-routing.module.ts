@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { DashboardComponent } from './dashboard.component';
+import { CoursesComponent } from './pages/courses/courses.component';
 
 
 
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
       { path: "home", component: HomeComponent },
       { path: "students", component: StudentsComponent },
+      { path: "courses", component: CoursesComponent },
       { path: "", redirectTo: "home", pathMatch: "full" } // 👈 Redirigir a home por defecto
     ]
   }
