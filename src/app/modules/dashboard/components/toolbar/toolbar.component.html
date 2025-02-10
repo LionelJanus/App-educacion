@@ -12,20 +12,14 @@
   
        
         <!-- Botón de usuario -->
-        <button mat-icon-button [matMenuTriggerFor]="userMenu" style="width: fit-content;">
-          <mat-icon>person</mat-icon>
-        </button>
-        <mat-menu #userMenu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>login</mat-icon>
-            <span>Sign In</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>logout</mat-icon>
-            <span>Log Out</span>
-          </button>
-        </mat-menu>
-  
+      <div>
+        <a mat-list-item [routerLink]="['/auth/login']" >
+          <mat-icon >login</mat-icon>
+          <span >Sign In</span>
+        </a>
+      </div>
+        
+          
         <!-- Botón que abre el sidenav -->
         <button (click)="sidenav.toggle()" mat-icon-button aria-label="Toggle sidenav">
           <mat-icon>menu</mat-icon>

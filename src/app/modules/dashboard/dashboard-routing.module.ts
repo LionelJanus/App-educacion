@@ -5,6 +5,7 @@ import { StudentsComponent } from './pages/students/students.component';
 import { DashboardComponent } from './dashboard.component';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { TeachersComponent } from './pages/teachers/teachers.component';
+import { adminGuard } from '../../core/guards/admin.guard';
 
 
 
@@ -17,6 +18,12 @@ const routes: Routes = [
       { path: "students", component: StudentsComponent },
       { path: "courses", component: CoursesComponent },
       {path: "teachers", component: TeachersComponent},
+      {
+        path: 'users',
+        canActivate: [adminGuard],
+        loadChildren: () =>
+          import('./pages/users/users.module').then((m) => m.UsersModule),
+      },
       { path: "", redirectTo: "home", pathMatch: "full" } // 👈 Redirigir a home por defecto
     ]
   }

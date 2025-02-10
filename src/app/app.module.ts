@@ -9,19 +9,22 @@ import { ToolbarComponent } from './modules/dashboard/components/toolbar/toolbar
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { StudentsModule } from './modules/dashboard/pages/students/students.module';
 import { CoursesModule } from './modules/dashboard/pages/courses/courses.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     ToolbarComponent,
-    NavmenuComponent
+    NavmenuComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StudentsModule,
     CoursesModule,
+    AuthModule,
     SharedModule
   
   ],
