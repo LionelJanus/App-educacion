@@ -16,11 +16,19 @@ const FAKE_USERS_DB: User[] = [
   },
   {
     id: generateRandomString(6),
-    email: 'employee@email.com',
+    email: 'teacher@email.com',
     password: '123456',
-    name: 'Empleado',
+    name: 'Profesor',
     accessToken: 'djMDFJNd3gngh61DFd56hhgfddd23GFue232',
-    role: 'EMPLOYEE',
+    role: 'TEACHER',
+  },
+  {
+    id: generateRandomString(6),
+    email: 'student@email.com',
+    password: '123456',
+    name: 'Estudiante',
+    accessToken: 'djMDFJNd3gngh61DFd56hhgfddd23Gdasdw',
+    role: 'STUDENT',
   },
 ];
 
@@ -29,7 +37,7 @@ export class AuthService {
   private _authUser$ = new BehaviorSubject<null | User>(null);
   authUser$ = this._authUser$.asObservable();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   get isAdmin$(): Observable<boolean> {
     return this.authUser$.pipe(map((x) => x?.role === 'ADMIN'));
@@ -56,14 +64,18 @@ export class AuthService {
   }
 
   isAuthenticated(): Observable<boolean> {
-    /**
-     * authUser = null entonces quiero retornar false
-     * authUSer != null entonces quiero retornar true
-     */
+
     const storegeUser = FAKE_USERS_DB.find(
       (x) => x.accessToken === localStorage.getItem('access_token')
     );
     this._authUser$.next(storegeUser || null);
     return this.authUser$.pipe(map((x) => !!x));
+  }
+
+
+  getUserRole(): Observable<string> {
+    return this.authUser$.pipe(
+      map(user => user?.role || 'Invitado')
+    );
   }
 }
