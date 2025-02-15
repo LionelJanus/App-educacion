@@ -11,13 +11,21 @@
         <span style="padding: 40px;">Coder</span>
   
        
-        <!-- Botón de usuario -->
-      <div>
-        <a mat-list-item [routerLink]="['/auth/login']" >
-          <mat-icon >login</mat-icon>
-          <span >Sign In</span>
-        </a>
-      </div>
+     <!-- Mostrar login si no hay usuario autenticado -->
+     <ng-container *ngIf="(authUser$ | async) === null; else loggedIn">
+      <a mat-list-item [routerLink]="['/auth/login']">
+        <mat-icon>login</mat-icon>
+        <span>Sign In</span>
+      </a>
+    </ng-container>
+
+    <!-- Mostrar logout si el usuario está autenticado -->
+    <ng-template #loggedIn>
+      <a mat-list-item (click)="logout()">
+        <mat-icon >logout</mat-icon>
+        <span>Logout</span>
+      </a>
+    </ng-template>
         
           
         <!-- Botón que abre el sidenav -->

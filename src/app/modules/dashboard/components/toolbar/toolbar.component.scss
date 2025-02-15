@@ -11,7 +11,10 @@
     margin-right: 20px;
     
   }
-  
+  ::ng-deep .mdc-list-item__content{
+    display: flex;
+    justify-content: flex-end;
+  }
   
 
   .sidenav {
