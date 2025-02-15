@@ -16,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import { RoleVisibilityDirective } from './directives/rolevisibility.directive';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatOptionModule } from '@angular/material/core';
 
 
 
@@ -39,6 +41,8 @@ import { RoleVisibilityDirective } from './directives/rolevisibility.directive';
     MatExpansionModule,
     MatDialogModule,
     MatCardModule,
+    MatDividerModule,
+    MatOptionModule,
     RoleVisibilityDirective,
     ReactiveFormsModule
     

@@ -13,15 +13,17 @@ export class RoleVisibilityDirective implements OnInit, OnDestroy {
   constructor(private el: ElementRef, private authService: AuthService) {}
 
   ngOnInit() {
-    this.subscription = this.authService.getUserRole().subscribe(role => {
-      const userRole = role || ''; // Asegura que siempre sea una cadena
-      if (this.appRoleVisibility.includes(userRole)) {
-        this.el.nativeElement.style.display = 'block'; // Mostrar
-      } else {
-        this.el.nativeElement.style.display = 'none'; // Ocultar
-      }
-    });
-  }
+  this.subscription = this.authService.getUserRole().subscribe(role => {
+    const userRole = role || ''; // Asegura que siempre sea una cadena
+    console.log('User Role:', userRole); // Depuración
+    
+    if (this.appRoleVisibility.includes(userRole)) {
+      this.el.nativeElement.style.display = 'block'; // Mostrar
+    } else {
+      this.el.nativeElement.style.display = 'none'; // Ocultar
+    }
+  });
+}
 
   ngOnDestroy() {
     this.subscription.unsubscribe(); // Evitar fugas de memoria

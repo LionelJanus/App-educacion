@@ -11,12 +11,7 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Contraseña</mat-label>
-          <input
-            autocomplete="off"
-            type="password"
-            formControlName="password"
-            matInput
-          />
+          <input autocomplete="off" type="password" formControlName="password" matInput />
         </mat-form-field>
         <div class="flex justify-content-end">
           <button type="submit" mat-button>
@@ -25,5 +20,26 @@
         </div>
       </form>
     </mat-card-content>
+    <!-- Divider -->
+    <mat-divider></mat-divider>
+
+    <!-- Desplegable (Expansion Panel) -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Información adicional
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p> email: admin&#64;email.com
+        <br>password: 123456
+      </p>
+      <p> email: student&#64;email.com
+        <br>password: 123456
+      </p>
+      <p> email: teacher&#64;email.com
+        <br>password: 123456
+      </p>
+    </mat-expansion-panel>
   </mat-card>
+
 </div>
