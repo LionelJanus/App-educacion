@@ -1,21 +1,22 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from '../services/authservice';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  console.log('[authGuard] Se disparó authGuard');
-
+export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
+  const allowedRoles: string[] = route.data['roles'] || []; // Obtener los roles permitidos desde `data`
 
-  return authService.isAuthenticated().pipe(
-    map((isAuthenticated) => {
-      if (!isAuthenticated) {
-        return router.createUrlTree(['auth', 'login']);
+  return new Observable<boolean | import("@angular/router").UrlTree>((observer) => {
+    authService.getUserRole().subscribe(userRole => {
+      if (userRole && allowedRoles.includes(userRole)) {
+        observer.next(true); // Permitir el acceso
+      } else {
+        observer.next(router.createUrlTree(['/dashboard/home'])); // Redirigir si no tiene permiso
       }
-      return isAuthenticated;
-    }),
-  );
+      observer.complete();
+    });
+  });
 };

@@ -73,9 +73,10 @@ export class AuthService {
   }
 
 
-  getUserRole(): Observable<string> {
+  getUserRole(): Observable<string | null> {
     return this.authUser$.pipe(
-      map(user => user?.role || 'Invitado')
+      map(user => user?.role || null) // Devuelve null si no hay usuario autenticado
     );
   }
+  
 }

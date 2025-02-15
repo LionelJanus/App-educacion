@@ -4,18 +4,17 @@ import { AuthService } from '../services/authservice';
 import { map } from 'rxjs';
 
 export const adminGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthService);
+  console.log('[adminGuard] Se disparó adminGuard');
+
   const router = inject(Router);
+  const authService = inject(AuthService);
 
-  return authService.authUser$.pipe(
-    map((authUser) => {
-      if (!authUser) {
-        return router.createUrlTree(['auth', 'login']);
+  return authService.getUserRole().pipe(
+    map((role) => {
+      if (role === 'ADMIN') {
+        return true;
       }
-
-      return authUser.role === 'ADMIN'
-        ? true
-        : router.createUrlTree(['dashboard', 'home']);
+      return router.createUrlTree(['/dashboard/home']); // Redirigir si no es admin
     })
   );
 };

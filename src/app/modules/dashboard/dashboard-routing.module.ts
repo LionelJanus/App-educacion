@@ -28,31 +28,15 @@ const routes: Routes = [
 
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige a 'home' por defecto
   { path: 'home', component: HomeComponent }, // Ruta para el componente Home
-
+  { path: 'students', component: StudentsComponent, canActivate: [authGuard], data: { roles: ['ADMIN', 'TEACHER', 'STUDENT'] } }, 
+  { path: 'courses', component: CoursesComponent, canActivate: [authGuard], data: { roles: ['ADMIN', 'TEACHER'] } },  
+  { path: 'teachers', component: TeachersComponent, canActivate: [authGuard], data: { roles: ['ADMIN','TEACHER'] } } ,
   // Ruta no encontrada
   { path: '**', redirectTo: '/auth/login' }
 ];
 
 
-//   {
-//     path: "", // 👈 Esto hace que "dashboard" sea la ruta base
-//     component: DashboardComponent,
-//     children: [
-      
-//       { path: "home", component: HomeComponent },
-//       { path: "students", component: StudentsComponent },
-//       { path: "courses", component: CoursesComponent },
-//       {path: "teachers", component: TeachersComponent},
-//       {
-//         path: 'users',
-//         canActivate: [adminGuard],
-//         loadChildren: () =>
-//           import('./pages/users/users.module').then((m) => m.UsersModule),
-//       },
-//       { path: "", redirectTo: "home", pathMatch: "full" } // 👈 Redirigir a home por defecto
-//     ]
-//   }
-// ];
+
 
 
 @NgModule({

@@ -1,23 +1,26 @@
 <mat-nav-list>
-    <a mat-list-item  [routerLink]="['/home']">
-      <mat-icon>home</mat-icon>
-      <span>Home</span>
-    </a>
-    
-    <a mat-list-item [routerLink]="['/dashboard/students']" >
-      <mat-icon>list</mat-icon>
-      <span>Alumnos</span>
-    </a>
-    <a mat-list-item [routerLink]="['/dashboard/courses']" >
-      <mat-icon>list</mat-icon>
-      <span>Cursos</span>
-    </a>
-    <a mat-list-item [routerLink]="['/dashboard/teachers']" >
-      <mat-icon>list</mat-icon>
-      <span>Profesores</span>
-    </a>
-      <a mat-list-item>
-      <mat-icon>info</mat-icon>
-      <span>About</span>
-    </a>
-  </mat-nav-list>
+  <a mat-list-item [routerLink]="['/dashboard/home']">
+    <mat-icon>home</mat-icon>
+    <span>Home</span>
+  </a>
+  
+  <a mat-list-item [routerLink]="['/dashboard/students']" [appRoleVisibility]="['ADMIN','TEACHER','STUDENT']">
+    <mat-icon>list</mat-icon>
+    <span>Alumnos</span>
+  </a>
+ 
+  <a mat-list-item [routerLink]="['/dashboard/courses']" [appRoleVisibility]="['ADMIN','TEACHER']">
+    <mat-icon>list</mat-icon>
+    <span>Cursos</span>
+  </a>
+  
+  <a mat-list-item [routerLink]="['/dashboard/teachers']" [appRoleVisibility]="['ADMIN','TEACHER']">
+    <mat-icon>list</mat-icon>
+    <span>Profesores</span>
+  </a>
+
+  <a mat-list-item>
+    <mat-icon>info</mat-icon>
+    <span>About</span>
+  </a>
+</mat-nav-list>

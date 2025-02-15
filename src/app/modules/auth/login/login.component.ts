@@ -31,9 +31,12 @@ export class LoginComponent {
       this.loginForm.markAllAsTouched();
     return;
     }
-      console.log("loginform funciona");
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['dashboard/home']); // Redirige a la página de inicio
+    this.authService.login(this.loginForm.value);
+     
+    this.authService.isAuthenticated().subscribe(isAuth => {
+      if (isAuth) {
+        this.router.navigate(['/dashboard/home']);
+  
    
    // Mostrar el rol con un Snackbar
    this.authService.getUserRole().subscribe(role => {
@@ -42,6 +45,6 @@ export class LoginComponent {
     });
   });
 }
+});
 }
 }
-

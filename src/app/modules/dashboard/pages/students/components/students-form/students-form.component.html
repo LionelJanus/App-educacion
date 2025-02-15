@@ -1,6 +1,6 @@
 <!--Acordeon para Agregar Alumnos-->
 
-<mat-accordion>
+<mat-accordion *appRoleVisibility]="['ADMIN','STUDENT']">
     <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
       <mat-expansion-panel-header>
         <mat-panel-title> Agregar Alumno</mat-panel-title>
@@ -186,10 +186,10 @@
       </button>
     </ng-container>
     <ng-template #editButtons>
-      <button mat-icon-button (click)="enableEdit(i)">
+      <button mat-icon-button (click)="enableEdit(i)" *appRoleVisibility]="['ADMIN','STUDENT']">
         <mat-icon style="color: blue;">edit</mat-icon>
       </button>
-      <button mat-icon-button (click)="deleteStudent(i)">
+      <button mat-icon-button (click)="deleteStudent(i)" *appRoleVisibility]="['ADMIN','STUDENT']">
         <mat-icon style="color: red;">delete</mat-icon>
       </button>
       <!-- Botón para ver detalles -->

@@ -15,11 +15,12 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
+import { RoleVisibilityDirective } from './directives/rolevisibility.directive';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [RoleVisibilityDirective],
   imports: [
     CommonModule
   ],
@@ -38,6 +39,7 @@ import {MatCardModule} from '@angular/material/card';
     MatExpansionModule,
     MatDialogModule,
     MatCardModule,
+    RoleVisibilityDirective,
     ReactiveFormsModule
     
   ]
