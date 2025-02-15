@@ -10,6 +10,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { StudentsModule } from './modules/dashboard/pages/students/students.module';
 import { CoursesModule } from './modules/dashboard/pages/courses/courses.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { AuthModule } from './modules/auth/auth.module';
   
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

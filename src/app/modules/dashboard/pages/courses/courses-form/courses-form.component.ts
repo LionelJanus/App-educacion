@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CoursesService } from '../../../../../core/services/courses.service'; // Asumiendo que tienes un servicio para manejar los cursos
+import { CoursesService } from '../../../../../core/services/courses.service'; 
 import { generateRandomString } from '../../../../../shared/utils';
 import { Course } from '../models/courses.model';
 
@@ -19,14 +19,16 @@ export class CoursesFormComponent implements OnInit {
   filteredDataSource: Course[] | undefined;
   courseForm!: FormGroup; // Formulario para agregar o editar cursos
   readonly panelOpenState = signal(false);
+  isSubmitting: boolean = false;
 
+  
   constructor(
     private fb: FormBuilder,
-    private coursesService: CoursesService, // Suponiendo que tienes un servicio de cursos
+    private coursesService: CoursesService,
     private snackBar: MatSnackBar
   ) {
     this.courseForm = this.fb.group({
-      id: [generateRandomString(6), Validators.required], // Se podría generar un id único
+      id: [generateRandomString(6), Validators.required], 
       courseName: ['', Validators.required],
       description: ['', Validators.required],
       duration: ['', [Validators.required, Validators.min(1)]],
@@ -35,53 +37,90 @@ export class CoursesFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = this.coursesService.getCourses(); // Cargar los cursos desde el servicio
+    this.loadCourses(); // Cargar los cursos desde el servicio
   }
 
-  // Función para agregar un nuevo curso
+  // Función para cargar los cursos desde el servidor
+  loadCourses(): void {
+    this.coursesService.getCourses().subscribe(
+      (courses) => {
+        this.dataSource = courses;
+        this.filteredDataSource = [...this.dataSource];
+      },
+      (error) => {
+        this.openSnackBar('Error al cargar los cursos', 'Cerrar');
+      }
+    );
+  }
+
   onSubmit(): void {
     if (this.courseForm.valid) {
       const newCourse: Course = { ...this.courseForm.value, isEditing: false };
-      this.coursesService.addCourse(newCourse); // Agregar el curso al servicio
-      this.openSnackBar('Curso agregado exitosamente!', 'Cerrar');
-      this.courseForm.reset(); // Resetea el formulario
+      this.coursesService.addCourse(newCourse).subscribe(
+        (addedCourse) => {
+          this.dataSource.push(addedCourse);
+          this.filteredDataSource = [...this.dataSource];
+          this.openSnackBar('Curso agregado exitosamente!', 'Cerrar');
+          this.courseForm.reset();
+          this.courseForm.patchValue({ id: generateRandomString(6) });
+        },
+        (error) => {
+          this.openSnackBar('Error al agregar el curso', 'Cerrar');
+        }
+      );
     }
   }
 
-  // Método para habilitar la edición del curso
   enableEdit(index: number): void {
-    this.dataSource[index].isEditing = true;
+    this.dataSource = this.dataSource.map((course, i) => 
+      i === index ? { ...course, isEditing: true } : { ...course, isEditing: false }
+    );
+    this.filteredDataSource = [...this.dataSource]; // Forzar la actualización
   }
-
-  // Método para guardar los cambios después de la edición
+  
+  
+  
   saveEdit(index: number): void {
-    this.coursesService.updateCourse(index, this.dataSource[index]); // Actualizar en el servicio
-    this.dataSource[index].isEditing = false;
-    this.openSnackBar('Curso actualizado exitosamente!', 'Cerrar');
+    const updatedCourse = { ...this.dataSource[index], isEditing: false }; // Asegurar que se quite isEditing
+    const courseId = updatedCourse.id;  
+  
+    this.coursesService.updateCourse(courseId, updatedCourse).subscribe(
+      (updated) => {
+        this.dataSource[index] = { ...updated, isEditing: false }; // Mantener la reactividad
+        this.filteredDataSource = [...this.dataSource]; // Forzar actualización de la lista
+        this.openSnackBar('Curso actualizado exitosamente!', 'Cerrar');
+      },
+      (error) => {
+        this.openSnackBar('Error al actualizar el curso', 'Cerrar');
+      }
+    );
   }
+  
+  
 
-  // Cancelar la edición y restaurar los valores originales
   cancelEdit(index: number): void {
-    this.dataSource[index].isEditing = false;
-    this.dataSource[index] = { ...this.coursesService.getCourse(index) }; // Restaurar los datos originales
+    this.loadCourses(); // Recargar desde el servidor para evitar inconsistencias
   }
+  
 
-  // Eliminar un curso
   deleteCourse(index: number): void {
-    this.coursesService.deleteCourse(index); // Actualizar en el servicio (y localStorage)
-    this.dataSource = this.coursesService.getCourses(); // Recargar la lista desde el servicio
-    this.filteredDataSource = this.dataSource; // Actualiza el filtro
-    this.openSnackBar('Curso eliminado exitosamente!', 'Cerrar');
+    const courseId = this.dataSource[index].id;
+    this.coursesService.deleteCourse(courseId).subscribe(
+      () => {
+        this.dataSource.splice(index, 1);
+        this.filteredDataSource = [...this.dataSource];
+        this.openSnackBar('Curso eliminado exitosamente!', 'Cerrar');
+      },
+      (error) => {
+        this.openSnackBar('Error al eliminar el curso', 'Cerrar');
+      }
+    );
   }
 
-  // Mostrar el mensaje del SnackBar
   openSnackBar(message: string, action: string): void {
-    this.snackBar.open(message, action, {
-      duration: 3000, // 3 segundos de duración
-    });
+    this.snackBar.open(message, action, { duration: 3000 });
   }
 
-  // Aplicar el filtro de búsqueda
   applyFilter(): void {
     const filterValue = this.searchText.trim().toLowerCase();
     if (filterValue) {
@@ -90,7 +129,7 @@ export class CoursesFormComponent implements OnInit {
         course.teacher.toLowerCase().includes(filterValue)
       );
     } else {
-      this.filteredDataSource = this.dataSource; // Si no hay filtro, muestra todos los cursos
+      this.filteredDataSource = this.dataSource;
     }
   }
 }

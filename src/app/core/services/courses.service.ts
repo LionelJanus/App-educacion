@@ -1,44 +1,40 @@
+// courses.service.ts
 import { Injectable } from '@angular/core';
 import { Course } from '../../modules/dashboard/pages/courses/models/courses.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.development'; // Asegúrate de importar el archivo de entorno
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  private courses: Course[] = [];
+  private apiUrl = `${environment.baseApiUrl}/courses`; // URL de tu JSON server
 
-  constructor() {
-    // Cargar los cursos desde el almacenamiento local (si es necesario)
-    const storedCourses = localStorage.getItem('courses');
-    if (storedCourses) {
-      this.courses = JSON.parse(storedCourses);
-    }
+  constructor(private httpClient: HttpClient) {}
+
+  // Obtener todos los cursos
+  getCourses(): Observable<Course[]> {
+    return this.httpClient.get<Course[]>(this.apiUrl);
   }
 
-  getCourses(): Course[] {
-    return this.courses;
+  // Obtener un curso por ID
+  getCourse(id: string): Observable<Course> {
+    return this.httpClient.get<Course>(`${this.apiUrl}/${id}`);
   }
 
-  getCourse(index: number): Course {
-    return this.courses[index];
+  // Agregar un nuevo curso
+  addCourse(course: Course): Observable<Course> {
+    return this.httpClient.post<Course>(this.apiUrl, course);
   }
 
-  addCourse(course: Course): void {
-    this.courses.push(course);
-    this.saveCourses();
+  // Actualizar un curso existente
+  updateCourse(id: string, updatedCourse: Course): Observable<Course> {
+    return this.httpClient.put<Course>(`${this.apiUrl}/${id}`, updatedCourse);
   }
 
-  updateCourse(index: number, updatedCourse: Course): void {
-    this.courses[index] = updatedCourse;
-    this.saveCourses();
-  }
-
-  deleteCourse(index: number): void {
-    this.courses.splice(index, 1);
-    this.saveCourses();
-  }
-
-  private saveCourses(): void {
-    localStorage.setItem('courses', JSON.stringify(this.courses));
+  // Eliminar un curso
+  deleteCourse(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

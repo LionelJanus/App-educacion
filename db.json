@@ -1,0 +1,68 @@
+{
+  "courses": [
+    {
+      "id": "sYy8w9",
+      "courseName": "Linux",
+      "description": "Sistema Operativo",
+      "duration": 20,
+      "teacher": "Lionel",
+      "isEditing": false
+    },
+    {
+      "id": "SqKZmx",
+      "courseName": "HTML",
+      "description": "Lenguaje de Programacion",
+      "duration": 30,
+      "teacher": "Angel",
+      "isEditing": false
+    },
+    {
+      "id": "1uiVWc",
+      "courseName": "sa",
+      "description": "Lenguaje de Programacion",
+      "duration": 30,
+      "teacher": "Angel",
+      "isEditing": false
+    },
+    {
+      "id": "1GcCg2",
+      "courseName": "React",
+      "description": "Framewoqsrk",
+      "duration": 25,
+      "teacher": "Angel",
+      "isEditing": false
+    },
+    {
+      "id": "XfIm3F",
+      "courseName": "Electronica",
+      "description": "sdwad",
+      "duration": 123,
+      "teacher": "saDA",
+      "isEditing": false
+    },
+    {
+      "id": "XfIm3F",
+      "courseName": "Electronica",
+      "description": "sdwad",
+      "duration": 123,
+      "teacher": "saDA",
+      "isEditing": false
+    },
+    {
+      "id": "WZMTdx",
+      "courseName": "se agrego",
+      "description": "sdasda",
+      "duration": 23,
+      "teacher": "dsdas",
+      "isEditing": false
+    },
+    {
+      "id": "8d6O7E",
+      "courseName": "se agrego 2",
+      "description": "sdas",
+      "duration": 23,
+      "teacher": "asdd",
+      "isEditing": false
+    }
+  ]
+}

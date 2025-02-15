@@ -1,9 +1,8 @@
 export interface Course {
-    id: number;
-    courseName: string;
-    description: string;
-    duration: number;
-    teacher: string;
-    isEditing?: boolean; // Propiedad opcional para saber si el curso está siendo editado
-  }
-  
+  id: string; // El id debe ser un string
+  courseName: string;
+  description: string;
+  duration: number;
+  teacher: string;
+  isEditing?: boolean; // Opcional para habilitar la edición
+}
