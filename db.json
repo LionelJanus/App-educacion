@@ -47,22 +47,6 @@
       "duration": 123,
       "teacher": "saDA",
       "isEditing": false
-    },
-    {
-      "id": "WZMTdx",
-      "courseName": "se agrego",
-      "description": "sdasda",
-      "duration": 23,
-      "teacher": "dsdas",
-      "isEditing": false
-    },
-    {
-      "id": "8d6O7E",
-      "courseName": "se agrego 2",
-      "description": "sdas",
-      "duration": 23,
-      "teacher": "asdd",
-      "isEditing": false
     }
   ]
 }

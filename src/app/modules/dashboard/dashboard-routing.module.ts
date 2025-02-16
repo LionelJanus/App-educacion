@@ -5,7 +5,6 @@ import { StudentsComponent } from './pages/students/students.component';
 import { DashboardComponent } from './dashboard.component';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { TeachersComponent } from './pages/teachers/teachers.component';
-import { adminGuard } from '../../core/guards/admin.guard';
 import { LoginComponent } from '../auth/login/login.component';
 import { authGuard } from '../../core/guards/auth.guard'; 
 
