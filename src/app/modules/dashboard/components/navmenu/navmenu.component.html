@@ -3,7 +3,11 @@
     <mat-icon>home</mat-icon>
     <span>Home</span>
   </a>
-  
+  <a mat-list-item [routerLink]="['/dashboard/enrollment']" [appRoleVisibility]="['ADMIN','TEACHER','STUDENT']">
+    <mat-icon>list</mat-icon>
+    <span>Inscripcion</span>
+  </a>
+
   <a mat-list-item [routerLink]="['/dashboard/students']" [appRoleVisibility]="['ADMIN','TEACHER','STUDENT']">
     <mat-icon>list</mat-icon>
     <span>Alumnos</span>
@@ -17,6 +21,11 @@
   <a mat-list-item [routerLink]="['/dashboard/teachers']" [appRoleVisibility]="['ADMIN','TEACHER']">
     <mat-icon>list</mat-icon>
     <span>Profesores</span>
+  </a>
+
+  <a mat-list-item [routerLink]="['/dashboard/users']" [appRoleVisibility]="['ADMIN']">
+    <mat-icon>list</mat-icon>
+    <span>Usuarios</span>
   </a>
 
   <a mat-list-item>

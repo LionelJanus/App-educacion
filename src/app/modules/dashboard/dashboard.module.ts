@@ -4,6 +4,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 
 import { HomeComponent } from './pages/home/home.component';
 import { TeachersComponent } from './pages/teachers/teachers.component';
+import { EnrollmentsComponent } from './pages/enrollments/enrollments.component';
 
 
 
@@ -12,6 +13,7 @@ import { TeachersComponent } from './pages/teachers/teachers.component';
   declarations: [
     HomeComponent,
     TeachersComponent,
+    
     
   ],
   imports: [

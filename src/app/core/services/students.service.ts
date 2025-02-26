@@ -1,61 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Student } from '../../modules/dashboard/pages/students/models/student.model';
+import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Student } from '../../modules/dashboard/pages/students/models/student.model'; // Asegúrate de tener el modelo adecuado para Student
+import { environment } from '../../../environments/environment'; // Asegúrate de que la URL base esté configurada correctamente
 
 @Injectable({
   providedIn: 'root',
 })
 export class StudentsService {
-  private localStorageKey = 'students';
+  private apiUrl = `${environment.baseApiUrl}/students`; // URL de tu API
 
-  constructor() {
-    // Inicializa el localStorage si no hay datos
-    const studentsFromStorage = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
-    if (!studentsFromStorage.length) {
-      localStorage.setItem(this.localStorageKey, JSON.stringify([]));
-    }
+  constructor(private httpClient: HttpClient, private store: Store) {}
+
+  // Obtener todos los estudiantes desde la API
+  getStudents(): Observable<Student[]> {
+    return this.httpClient.get<Student[]>(this.apiUrl);
   }
 
-  // Generar un id aleatorio
-  generateRandomString(length: number = 10): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
+  // Obtener un estudiante por id desde la API
+  getStudent(id: string): Observable<Student> {
+    return this.httpClient.get<Student>(`${this.apiUrl}/${id}`);
   }
 
-  getStudents(): Student[] {
-    return JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
+  // Agregar un estudiante usando la API
+  addStudent(student: Student): Observable<Student> {
+    return this.httpClient.post<Student>(this.apiUrl, student);
   }
 
-  getStudent(index: number): Student {
-    const students = this.getStudents();
-    return students[index];
+  // Actualizar un estudiante usando la API
+  updateStudent(id: string, updatedStudent: Student): Observable<Student> {
+    return this.httpClient.put<Student>(`${this.apiUrl}/${id}`, updatedStudent);
   }
 
-  addStudent(student: Student): void {
-    // Asignar un id único al estudiante
-    student.id = this.generateRandomString();
-    const students = this.getStudents();
-    students.push(student);
-    this.saveStudents(students);
-  }
-
-  updateStudent(index: number, updatedStudent: Student): void {
-    const students = this.getStudents();
-    students[index] = updatedStudent;
-    this.saveStudents(students);
-  }
-
-  deleteStudent(index: number): void {
-    const students = this.getStudents();
-    students.splice(index, 1);
-    this.saveStudents(students);
-  }
-
-  private saveStudents(students: Student[]): void {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(students));
+  // Eliminar un estudiante usando la API
+  deleteStudent(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

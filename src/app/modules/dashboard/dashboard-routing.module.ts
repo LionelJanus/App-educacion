@@ -7,6 +7,9 @@ import { CoursesComponent } from './pages/courses/courses.component';
 import { TeachersComponent } from './pages/teachers/teachers.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { authGuard } from '../../core/guards/auth.guard'; 
+import { EnrollmentsComponent } from './pages/enrollments/enrollments.component';
+import { adminGuard } from '../../core/guards/admin.guard';
+import { UsersComponent } from './pages/users/users.component';
 
 
 
@@ -24,12 +27,27 @@ const routes: Routes = [
     canActivate: [authGuard], // Protección para asegurar que el usuario esté logueado
     loadChildren: () => import('./dashboard.module').then(m => m.DashboardModule)
   },
+  {
+    path: 'enrollments',
+    loadChildren: () =>
+      import('./pages/enrollments/enrollments.module').then(
+        (m) => m.EnrollmentsModule
+      ),
+  },
+  {
+    path: 'users',
+    canActivate: [adminGuard],
+    loadChildren: () =>
+      import('./pages/users/users.module').then((m) => m.UsersModule),
+  },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige a 'home' por defecto
   { path: 'home', component: HomeComponent }, // Ruta para el componente Home
   { path: 'students', component: StudentsComponent, canActivate: [authGuard], data: { roles: ['ADMIN', 'TEACHER', 'STUDENT'] } }, 
   { path: 'courses', component: CoursesComponent, canActivate: [authGuard], data: { roles: ['ADMIN', 'TEACHER'] } },  
   { path: 'teachers', component: TeachersComponent, canActivate: [authGuard], data: { roles: ['ADMIN','TEACHER'] } } ,
+  { path: 'enrollment', component: EnrollmentsComponent, canActivate: [authGuard], data: { roles: ['ADMIN','TEACHER','STUDENT'] } },
+  { path: 'users', component: UsersComponent, canActivate: [authGuard], data: { roles: ['ADMIN',] } } ,
   // Ruta no encontrada
   { path: '**', redirectTo: '/auth/login' }
 ];

@@ -11,6 +11,13 @@ import { StudentsModule } from './modules/dashboard/pages/students/students.modu
 import { CoursesModule } from './modules/dashboard/pages/courses/courses.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { EnrollmentsComponent } from './modules/dashboard/pages/enrollments/enrollments.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { userFeatureKey,reducer as userReducer  } from './modules/dashboard/pages/users/store/user.reducer';
+
+
+
 
 @NgModule({
   declarations: [
@@ -18,6 +25,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     DashboardComponent,
     ToolbarComponent,
     NavmenuComponent,
+    EnrollmentsComponent,
     
   ],
   imports: [
@@ -26,7 +34,9 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     StudentsModule,
     CoursesModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forRoot({ [userFeatureKey]: userReducer }),
+    EffectsModule.forRoot([])
   
   ],
   providers: [

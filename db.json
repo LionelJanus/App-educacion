@@ -1,4 +1,30 @@
 {
+  "users": [
+    {
+      "id": "vnD3s",
+      "email": "admin@email.com",
+      "password": "123456",
+      "name": "Administrador",
+      "accessToken": "djMDFJNdfmvcJKDFdsmd23GFuedsvFGD2d32",
+      "role": "ADMIN"
+    },
+    {
+      "id": "fdvc",
+      "email": "student@email.com",
+      "password": "123456",
+      "name": "Naruto",
+      "accessToken": "asdvfdsjgkfdkgjfdasdfDFDSBVDFSDF",
+      "role": "STUDENT"
+    },
+    {
+      "id": "fdvv3c",
+      "email": "student4@email.com",
+      "password": "123456",
+      "name": "Estudiante",
+      "accessToken": "dssdxcvdfgdsg45EDFDSfgERWCXGSFDGFDSGf",
+      "role": "STUDENT"
+    }
+  ],
   "courses": [
     {
       "id": "sYy8w9",
@@ -48,5 +74,26 @@
       "teacher": "saDA",
       "isEditing": false
     }
-  ]
+  ],
+  "teachers": [
+    {
+      "id": "sdjv4",
+      "name": "Kakashi Sensei",
+      "courseId": "a9c9"
+    }
+  ],
+  "students": [
+    {
+      "id": "H36Voj",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 38,
+      "email": "saasjhdj@email.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "Angular",
+      "isEditing": false
+    }
+  ],
+  "enrollements": []
 }

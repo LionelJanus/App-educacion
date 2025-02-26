@@ -18,8 +18,9 @@ import {MatCardModule} from '@angular/material/card';
 import { RoleVisibilityDirective } from './directives/rolevisibility.directive';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatOptionModule } from '@angular/material/core';
-
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [RoleVisibilityDirective],
@@ -44,7 +45,10 @@ import { MatOptionModule } from '@angular/material/core';
     MatDividerModule,
     MatOptionModule,
     RoleVisibilityDirective,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatDatepickerModule
     
   ]
 })

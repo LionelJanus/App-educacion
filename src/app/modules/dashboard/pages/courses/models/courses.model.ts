@@ -1,4 +1,5 @@
 export interface Course {
+name: any;
   id: string; // El id debe ser un string
   courseName: string;
   description: string;
