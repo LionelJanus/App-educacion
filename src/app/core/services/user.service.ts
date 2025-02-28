@@ -9,9 +9,19 @@ import { User } from '../../modules/dashboard/pages/users/models';
 @Injectable({ providedIn: 'root' })
 
 export class UsersService {
+ 
+
   private apiUrl = `${environment.baseApiUrl}/courses`; // URL de tu JSON server
   
   constructor(private httpClient: HttpClient, private store: Store) {}
+
+  createUser(user: User): Observable<User> {
+    return this.httpClient.post<User>(`${environment.baseApiUrl}/users`, user);
+  }
+  
+  getUsers(): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${environment.baseApiUrl}/users`);
+  }
 
   getStudentUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(
@@ -23,8 +33,8 @@ export class UsersService {
     this.store.dispatch(UserActions.loadUsers());
   }
 
-  deleteUserById(id: string) {
-    this.store.dispatch(UserActions.deleteUserById({ id }));
+  deleteUser(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${environment.baseApiUrl}/users/${id}`);
   }
 
   resetUserState(): void {

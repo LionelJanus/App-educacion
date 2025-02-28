@@ -1,43 +1,42 @@
-<!-- Acordeón para Agregar Cursos -->
-<mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
-      <mat-expansion-panel-header>
-        <mat-panel-title> Agregar Curso</mat-panel-title>
-        <mat-panel-description>
-          Rellena con los datos del curso
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="form-container">
-        <form style="display: flex;justify-content: center;" [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-          <mat-form-field appearance="fill">
-            <mat-label>Nombre del Curso</mat-label>
-            <input matInput formControlName="courseName" required />
-            <mat-error *ngIf="courseForm.get('courseName')?.hasError('required')">El nombre del curso es obligatorio</mat-error>
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label>Descripción</mat-label>
-            <input matInput formControlName="description" required />
-            <mat-error *ngIf="courseForm.get('description')?.hasError('required')">La descripción es obligatoria</mat-error>
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label>Duración (en horas)</mat-label>
-            <input matInput formControlName="duration" type="number" required />
-            <mat-error *ngIf="courseForm.get('duration')?.hasError('required')">La duración es obligatoria</mat-error>
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label>Profesor</mat-label>
-            <input matInput formControlName="teacher" required />
-            <mat-error *ngIf="courseForm.get('teacher')?.hasError('required')">El nombre del profesor es obligatorio</mat-error>
-          </mat-form-field>
-  
-          <button mat-raised-button color="primary" type="submit" [disabled]="courseForm.invalid">Agregar</button>
-        </form>
+<mat-card class="course-form-card">
+  <mat-card-header>
+    <mat-card-title>Agregar Curso</mat-card-title>
+    <mat-card-subtitle>Rellena con los datos del curso</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nombre del Curso</mat-label>
+        <input matInput formControlName="courseName" required />
+        <mat-error *ngIf="courseForm.get('courseName')?.hasError('required')">El nombre del curso es obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Descripción</mat-label>
+        <input matInput formControlName="description" required />
+        <mat-error *ngIf="courseForm.get('description')?.hasError('required')">La descripción es obligatoria</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Duración (en horas)</mat-label>
+        <input matInput formControlName="duration" type="number" required />
+        <mat-error *ngIf="courseForm.get('duration')?.hasError('required')">La duración es obligatoria</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Profesor</mat-label>
+        <input matInput formControlName="teacher" required />
+        <mat-error *ngIf="courseForm.get('teacher')?.hasError('required')">El nombre del profesor es obligatorio</mat-error>
+      </mat-form-field>
+
+      <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" [disabled]="courseForm.invalid">Agregar</button>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </form>
+  </mat-card-content>
+</mat-card>
+
   
   <!-- Lista de Cursos -->
   <div class="table-container">

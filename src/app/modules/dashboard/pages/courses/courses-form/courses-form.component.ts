@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CoursesService } from '../../../../../core/services/courses.service'; 
 import { generateRandomString } from '../../../../../shared/utils';
+import { AuthService } from '../../../../../core/services/authservice';
 import { Course } from '../models/courses.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-courses-form',
@@ -21,37 +23,60 @@ export class CoursesFormComponent implements OnInit {
   readonly panelOpenState = signal(false);
   isSubmitting: boolean = false;
 
-  
   constructor(
     private fb: FormBuilder,
     private coursesService: CoursesService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authService: AuthService // Inyecta el servicio de autenticación
   ) {
     this.courseForm = this.fb.group({
-      id: [generateRandomString(6), Validators.required], 
+      id: [generateRandomString(6), Validators.required],
       courseName: ['', Validators.required],
       description: ['', Validators.required],
       duration: ['', [Validators.required, Validators.min(1)]],
       teacher: ['', Validators.required],
     });
   }
-
+  
   ngOnInit(): void {
     this.loadCourses(); // Cargar los cursos desde el servicio
   }
-
-  // Función para cargar los cursos desde el servidor
+  
   loadCourses(): void {
-    this.coursesService.getCourses().subscribe(
-      (courses) => {
-        this.dataSource = courses;
-        this.filteredDataSource = [...this.dataSource];
-      },
-      (error) => {
-        this.openSnackBar('Error al cargar los cursos', 'Cerrar');
+    const currentUser = this.authService.getCurrentUser(); // Obtener el usuario actual (profesor o admin)
+    
+    if (currentUser) {
+      if (currentUser.role === 'ADMIN') {
+        // Si el rol es ADMIN, carga todos los cursos sin filtro
+        this.coursesService.getCourses().subscribe(
+          (courses) => {
+            this.dataSource = courses;  // No se aplica ningún filtro por profesor
+            this.filteredDataSource = [...this.dataSource];
+          },
+          (error) => {
+            this.openSnackBar('Error al cargar los cursos', 'Cerrar');
+          }
+        );
+      } else if (currentUser.role === 'TEACHER') {
+        // Si el rol es TEACHER, filtra los cursos por el nombre del profesor
+        this.coursesService.getCourses().subscribe(
+          (courses) => {
+            this.dataSource = courses.filter(course => course.teacher === currentUser.name); // Filtrar por nombre de profesor
+            this.filteredDataSource = [...this.dataSource];
+          },
+          (error) => {
+            this.openSnackBar('Error al cargar los cursos', 'Cerrar');
+          }
+        );
+      } else {
+        this.openSnackBar('No tienes permisos para ver los cursos', 'Cerrar');
       }
-    );
+    } else {
+      this.openSnackBar('No se pudo obtener la información del usuario', 'Cerrar');
+    }
   }
+  
+  
 
   onSubmit(): void {
     if (this.courseForm.valid) {
@@ -102,34 +127,47 @@ export class CoursesFormComponent implements OnInit {
     this.loadCourses(); // Recargar desde el servidor para evitar inconsistencias
   }
   
-
   deleteCourse(index: number): void {
     const courseId = this.dataSource[index].id;
-    this.coursesService.deleteCourse(courseId).subscribe(
-      () => {
-        this.dataSource.splice(index, 1);
-        this.filteredDataSource = [...this.dataSource];
-        this.openSnackBar('Curso eliminado exitosamente!', 'Cerrar');
-      },
-      (error) => {
-        this.openSnackBar('Error al eliminar el curso', 'Cerrar');
+  
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.coursesService.deleteCourse(courseId).subscribe(
+          () => {
+            this.dataSource.splice(index, 1);
+            this.filteredDataSource = [...this.dataSource];
+            Swal.fire('Eliminado', 'El curso ha sido eliminado con éxito.', 'success');
+          },
+          (error) => {
+            Swal.fire('Error', 'Hubo un problema al eliminar el curso.', 'error');
+          }
+        );
       }
-    );
+    });
   }
+  
 
   openSnackBar(message: string, action: string): void {
     this.snackBar.open(message, action, { duration: 3000 });
   }
 
-  applyFilter(): void {
-    const filterValue = this.searchText.trim().toLowerCase();
-    if (filterValue) {
-      this.filteredDataSource = this.dataSource.filter((course) =>
-        course.courseName.toLowerCase().includes(filterValue) ||
-        course.teacher.toLowerCase().includes(filterValue)
+  applyFilter() {
+    if (this.searchText) {
+      this.filteredDataSource = this.dataSource.filter(course =>
+        course.courseName.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        course.teacher.toLowerCase().includes(this.searchText.toLowerCase())
       );
     } else {
-      this.filteredDataSource = this.dataSource;
+      this.filteredDataSource = [...this.dataSource];
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "vnD3s",
+      "id": "sadsd512",
       "email": "admin@email.com",
       "password": "123456",
       "name": "Administrador",
@@ -9,20 +9,20 @@
       "role": "ADMIN"
     },
     {
-      "id": "fdvc",
-      "email": "student@email.com",
+      "id": "m2wOU0",
+      "name": "Lionel",
+      "email": "lj.lionel86@gmail.com",
+      "role": "ADMIN",
       "password": "123456",
-      "name": "Naruto",
-      "accessToken": "asdvfdsjgkfdkgjfdasdfDFDSBVDFSDF",
-      "role": "STUDENT"
+      "accessToken": "RByCzKkDETXUIKbxk7vFumVxoZ7EmUJE"
     },
     {
-      "id": "fdvv3c",
-      "email": "student4@email.com",
+      "id": "7iDJ6F",
+      "name": "Lionel",
+      "email": "lj_lionel@hotmail.com",
+      "role": "TEACHER",
       "password": "123456",
-      "name": "Estudiante",
-      "accessToken": "dssdxcvdfgdsg45EDFDSfgERWCXGSFDGFDSGf",
-      "role": "STUDENT"
+      "accessToken": "T78Y7uSu8DdFYlt3s0xDDzsiDU6PCt3Q"
     }
   ],
   "courses": [
@@ -43,17 +43,9 @@
       "isEditing": false
     },
     {
-      "id": "1uiVWc",
-      "courseName": "sa",
-      "description": "Lenguaje de Programacion",
-      "duration": 30,
-      "teacher": "Angel",
-      "isEditing": false
-    },
-    {
       "id": "1GcCg2",
       "courseName": "React",
-      "description": "Framewoqsrk",
+      "description": "Framewosrk",
       "duration": 25,
       "teacher": "Angel",
       "isEditing": false
@@ -63,23 +55,8 @@
       "courseName": "Electronica",
       "description": "sdwad",
       "duration": 123,
-      "teacher": "saDA",
+      "teacher": "Kakashi Sensei",
       "isEditing": false
-    },
-    {
-      "id": "XfIm3F",
-      "courseName": "Electronica",
-      "description": "sdwad",
-      "duration": 123,
-      "teacher": "saDA",
-      "isEditing": false
-    }
-  ],
-  "teachers": [
-    {
-      "id": "sdjv4",
-      "name": "Kakashi Sensei",
-      "courseId": "a9c9"
     }
   ],
   "students": [
@@ -92,6 +69,28 @@
       "country": "Argentina",
       "address": "Soldado De La Frontera",
       "course": "Angular",
+      "isEditing": true
+    },
+    {
+      "id": "ol5a38",
+      "name": "Jose",
+      "lastname": "dhsjka",
+      "age": 30,
+      "email": "sdsad@email.com",
+      "country": "sdsa",
+      "address": "d",
+      "course": "as",
+      "isEditing": false
+    },
+    {
+      "id": "BupeoG",
+      "name": "alfredo",
+      "lastname": "Taffo",
+      "age": 35,
+      "email": "taffoni@email.com",
+      "country": "Argentina",
+      "address": "Av cordoba 2351",
+      "course": "1GcCg2",
       "isEditing": false
     }
   ],

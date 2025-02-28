@@ -6,6 +6,8 @@ import { UsersComponent } from './users.component';
 import { StoreModule } from '@ngrx/store';
 import { userFeature } from './store/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
+import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../../../../shared/shared.module';
 
 
 @NgModule({
@@ -14,6 +16,8 @@ import { EffectsModule } from '@ngrx/effects';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    SharedModule,
     UsersRoutingModule,
     StoreModule.forFeature(userFeature),
     EffectsModule.forFeature([]),

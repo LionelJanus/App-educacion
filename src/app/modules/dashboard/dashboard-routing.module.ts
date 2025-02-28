@@ -43,7 +43,6 @@ const routes: Routes = [
 
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige a 'home' por defecto
   { path: 'home', component: HomeComponent }, // Ruta para el componente Home
-  { path: 'students', component: StudentsComponent, canActivate: [authGuard], data: { roles: ['ADMIN', 'TEACHER', 'STUDENT'] } }, 
   { path: 'courses', component: CoursesComponent, canActivate: [authGuard], data: { roles: ['ADMIN', 'TEACHER'] } },  
   { path: 'teachers', component: TeachersComponent, canActivate: [authGuard], data: { roles: ['ADMIN','TEACHER'] } } ,
   { path: 'enrollment', component: EnrollmentsComponent, canActivate: [authGuard], data: { roles: ['ADMIN','TEACHER','STUDENT'] } },

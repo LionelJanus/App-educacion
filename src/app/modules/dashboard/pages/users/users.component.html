@@ -1,6 +1,106 @@
+<mat-card class="course-form-card">
+  <mat-card-header>
+    <mat-card-title><h2>Crear Nuevo Usuario</h2></mat-card-title>
+    <mat-card-subtitle>Rellena con los datos del</mat-card-subtitle>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div *ngIf="authService.isAdmin$ | async">
+      
+      <form (ngSubmit)="createUser()">
+        <div class="form-group">
+          <label for="name">Nombre:</label>
+          <input
+            id="name"
+            [(ngModel)]="newUser.name"
+            name="name"
+            required
+            class="form-control"
+            placeholder="Ingrese el nombre"
+          />
 
-<ul>
-    <li *ngFor="let user of users$ | async">
-      {{ user.name }} - <button (click)="deleteUserById(user.id)">X</button>
-    </li>
-  </ul>
+          <label for="email">Correo electrónico:</label>
+          <input
+            id="email"
+            [(ngModel)]="newUser.email"
+            name="email"
+            required
+            class="form-control"
+            placeholder="Ingrese el correo"
+          />
+
+          <label for="role">Rol:</label>
+          <select
+            id="role"
+            [(ngModel)]="newUser.role"
+            name="role"
+            required
+            class="form-control"
+          >
+            <option value="ADMIN">Administrador</option>
+            <option value="TEACHER">Profesor</option>
+            <option value="STUDENT">Estudiante</option>
+          </select>
+
+          <label for="password">Contraseña:</label>
+          <input
+            type="password"
+            id="password"
+            [(ngModel)]="newUser.password"
+            name="password"
+            required
+            class="form-control"
+            placeholder="Ingrese la contraseña"
+          />
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!newUser.name || !newUser.email || !newUser.password"
+          >
+            Crear Usuario
+          </button>
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+
+  <div *ngIf="!(authService.isAdmin$ | async)">
+    <p>Solo los administradores pueden crear nuevos usuarios.</p>
+  </div>
+</mat-card>
+
+<mat-card class="users-list-card" *ngIf="users.length > 0">
+  <mat-card-header>
+    <mat-card-title><h2>Lista de Usuarios</h2></mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <table mat-table [dataSource]="users" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let user"> {{ user.name }} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Correo </th>
+        <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef> Rol </th>
+        <td mat-cell *matCellDef="let user"> {{ user.role }} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-button color="warn" (click)="deleteUserById(user.id)">Eliminar</button>
+        </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>
