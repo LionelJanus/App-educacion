@@ -23,39 +23,42 @@
       "role": "TEACHER",
       "password": "123456",
       "accessToken": "T78Y7uSu8DdFYlt3s0xDDzsiDU6PCt3Q"
+    },
+    {
+      "id": "LSfFHS",
+      "name": "LJ",
+      "email": "lj@student.com",
+      "role": "STUDENT",
+      "password": "123456",
+      "accessToken": "UTl6UIXTMr2MX1tLMBgZ9wQMRI4cQUzr"
     }
   ],
   "courses": [
     {
-      "id": "sYy8w9",
-      "courseName": "Linux",
-      "description": "Sistema Operativo",
-      "duration": 20,
+      "id": "cebc",
+      "courseName": "Reparacion de PC",
+      "description": "reparacion",
+      "duration": 50,
       "teacher": "Lionel",
+      "courseDays": [
+        "Martes",
+        "Miércoles"
+      ],
+      "startTime": "15:00",
+      "endTime": "18:00",
       "isEditing": false
     },
     {
-      "id": "SqKZmx",
-      "courseName": "HTML",
-      "description": "Lenguaje de Programacion",
-      "duration": 30,
-      "teacher": "Angel",
-      "isEditing": false
-    },
-    {
-      "id": "1GcCg2",
-      "courseName": "React",
-      "description": "Framewosrk",
-      "duration": 25,
-      "teacher": "Angel",
-      "isEditing": false
-    },
-    {
-      "id": "XfIm3F",
-      "courseName": "Electronica",
-      "description": "sdwad",
-      "duration": 123,
-      "teacher": "Kakashi Sensei",
+      "id": "35d8",
+      "courseName": "dsdsad",
+      "description": "sdsads",
+      "duration": 50,
+      "teacher": "sadsad",
+      "courseDays": [
+        "Miércoles"
+      ],
+      "startTime": "11:00",
+      "endTime": "12:00",
       "isEditing": false
     }
   ],
@@ -92,7 +95,199 @@
       "address": "Av cordoba 2351",
       "course": "1GcCg2",
       "isEditing": false
+    },
+    {
+      "id": "f8in63",
+      "name": "sads",
+      "lastname": "sdsd",
+      "age": 30,
+      "email": "sdasd@email.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "AITjHb",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 23,
+      "email": "sdada@gmail.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "35d8",
+      "isEditing": false
+    },
+    {
+      "id": "9oE5wK",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 30,
+      "email": "sadasd@email.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "ofBqII",
+      "name": "Hugo",
+      "lastname": "Januszevski",
+      "age": 50,
+      "email": "hugo@email.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "Hct4Ro",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 28,
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "koFopA",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 23,
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "2zNRYj",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 38,
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "w1Ssgw",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 39,
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "BeUGrL",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 39,
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "35d8",
+      "isEditing": false
+    },
+    {
+      "id": "zvOjZ7",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 39,
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "HETPgE",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 39,
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "w6pHCy",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 39,
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "vn7yYR",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 39,
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "FVOkC6",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 2,
+      "email": "dada@hotmail.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "jnMGG8",
+      "name": "Hugo",
+      "lastname": "Januszevski",
+      "age": 50,
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "ou3E6v",
+      "name": "Juan",
+      "lastname": "dsad",
+      "age": 30,
+      "email": "sdad@email.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "OhDcoT",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 40,
+      "email": "sdad@email.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
     }
   ],
-  "enrollements": []
+  "enrollments": [
+    {
+      "id": "2c10",
+      "name": "SQL"
+    }
+  ]
 }

@@ -40,4 +40,10 @@ export class UsersService {
   resetUserState(): void {
     this.store.dispatch(UserActions.resetState());
   }
+
+  // Obtener detalles de un usuario por ID
+  getUserById(userId: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.apiUrl}/${userId}`);
+  }
+
 }

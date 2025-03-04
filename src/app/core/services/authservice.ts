@@ -25,6 +25,13 @@ export class AuthService {
 
   constructor(private router: Router, private http: HttpClient) {}
 
+  
+
+  getUserId(): string {
+    return localStorage.getItem('userId') || ''; 
+  }
+  
+
   // Obtener los usuarios con rol ADMIN
   get isAdmin$(): Observable<boolean> {
     return this.authUser$.pipe(map((x) => x?.role === 'ADMIN'));

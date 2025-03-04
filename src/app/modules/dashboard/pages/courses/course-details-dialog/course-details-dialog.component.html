@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Detalles del Curso</h2>
+<mat-dialog-content>
+  <p><strong>Nombre del Curso:</strong> {{ data.courseName }}</p>
+  <p><strong>Descripción:</strong> {{ data.description }}</p>
+  <p><strong>Profesor:</strong> {{ data.teacher }}</p>
+  <p><strong>Días del Curso:</strong> {{ data.courseDays.join(', ') }}</p>
+  <p><strong>Duración:</strong> {{ data.duration }} horas</p>
+  <p><strong>Hora de Inicio:</strong> {{ data.startTime }}</p>
+  <p><strong>Hora de Finalización:</strong> {{ data.endTime }}</p>
+  <p><strong>Usuarios:</strong> {{ data.enrolledUsers }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

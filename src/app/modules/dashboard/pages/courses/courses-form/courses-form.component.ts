@@ -6,6 +6,10 @@ import { generateRandomString } from '../../../../../shared/utils';
 import { AuthService } from '../../../../../core/services/authservice';
 import { Course } from '../models/courses.model';
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';  // Importa el servicio MatDialog
+import { CourseDetailsDialogComponent } from '../course-details-dialog/course-details-dialog.component';  // Ajusta la ruta si es necesario
+
+
 
 @Component({
   selector: 'app-courses-form',
@@ -16,7 +20,8 @@ import Swal from 'sweetalert2';
 export class CoursesFormComponent implements OnInit {
 
   searchText: string = '';
-  displayedColumns: string[] = ['id', 'courseName', 'description', 'duration', 'teacher', 'actions'];
+  daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+  displayedColumns: string[] = ['id', 'courseName', 'description','courseDays','startTime','endTime','duration', 'teacher', 'actions'];
   dataSource: Course[] = [];
   filteredDataSource: Course[] | undefined;
   courseForm!: FormGroup; // Formulario para agregar o editar cursos
@@ -27,14 +32,17 @@ export class CoursesFormComponent implements OnInit {
     private fb: FormBuilder,
     private coursesService: CoursesService,
     private snackBar: MatSnackBar,
-    private authService: AuthService // Inyecta el servicio de autenticación
+    private authService: AuthService,  // Inyecta el servicio de autenticación
+    private dialog: MatDialog  // Inyecta el servicio MatDialog para mostrar modales
   ) {
     this.courseForm = this.fb.group({
-      id: [generateRandomString(6), Validators.required],
       courseName: ['', Validators.required],
       description: ['', Validators.required],
-      duration: ['', [Validators.required, Validators.min(1)]],
+      duration: ['', Validators.required],
       teacher: ['', Validators.required],
+      courseDays: [[], Validators.required],   
+      startTime: ['', Validators.required],    
+      endTime: ['', Validators.required]       
     });
   }
   
@@ -76,11 +84,29 @@ export class CoursesFormComponent implements OnInit {
     }
   }
   
-  
+  // Nueva función para verificar conflicto de horario
+  checkForScheduleConflict(newCourse: Course): boolean {
+    return this.dataSource.some(course => 
+      course.courseDays.some(day => newCourse.courseDays.includes(day)) &&
+      course.startTime === newCourse.startTime &&
+      course.endTime === newCourse.endTime
+    );
+  }
 
   onSubmit(): void {
     if (this.courseForm.valid) {
       const newCourse: Course = { ...this.courseForm.value, isEditing: false };
+
+       // Validar si hay conflicto de horario
+       if (this.checkForScheduleConflict(newCourse)) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Conflicto de horario',
+          text: 'Ya existe un curso en los mismos días y horario.',
+        });
+        return;
+      }
+      
       this.coursesService.addCourse(newCourse).subscribe(
         (addedCourse) => {
           this.dataSource.push(addedCourse);
@@ -103,8 +129,6 @@ export class CoursesFormComponent implements OnInit {
     this.filteredDataSource = [...this.dataSource]; // Forzar la actualización
   }
   
-  
-  
   saveEdit(index: number): void {
     const updatedCourse = { ...this.dataSource[index], isEditing: false }; // Asegurar que se quite isEditing
     const courseId = updatedCourse.id;  
@@ -121,8 +145,6 @@ export class CoursesFormComponent implements OnInit {
     );
   }
   
-  
-
   cancelEdit(index: number): void {
     this.loadCourses(); // Recargar desde el servidor para evitar inconsistencias
   }
@@ -154,7 +176,26 @@ export class CoursesFormComponent implements OnInit {
       }
     });
   }
-  
+
+  // Nueva función para ver detalles del curso
+  viewCourseDetails(course: Course): void {
+    this.coursesService.getCourseDetails(course.id).subscribe((details) => {
+      // Abre un modal o muestra los detalles de alguna otra forma
+      this.openDetailsDialog(details);
+    });
+  }
+
+  // Función para abrir un modal con los detalles del curso
+  openDetailsDialog(course: any): void {
+    const dialogRef = this.dialog.open(CourseDetailsDialogComponent, {
+      width: '400px',
+      data: course,
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('El diálogo de detalles del curso se cerró');
+    });
+  }
 
   openSnackBar(message: string, action: string): void {
     this.snackBar.open(message, action, { duration: 3000 });

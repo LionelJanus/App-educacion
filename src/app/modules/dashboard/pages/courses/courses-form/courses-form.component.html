@@ -9,13 +9,36 @@
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Nombre del Curso</mat-label>
         <input matInput formControlName="courseName" required />
-        <mat-error *ngIf="courseForm.get('courseName')?.hasError('required')">El nombre del curso es obligatorio</mat-error>
+        <mat-error *ngIf="courseForm.get('courseName')?.hasError('required')">El nombre del curso es
+          obligatorio</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Descripción</mat-label>
         <input matInput formControlName="description" required />
         <mat-error *ngIf="courseForm.get('description')?.hasError('required')">La descripción es obligatoria</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Días de Curso</mat-label>
+        <mat-select formControlName="courseDays" multiple required>
+          <mat-option *ngFor="let day of daysOfWeek" [value]="day">{{ day }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="courseForm.get('courseDays')?.hasError('required')">Los días del curso son obligatorios</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Hora de Inicio</mat-label>
+        <input matInput formControlName="startTime" type="time" required />
+        <mat-error *ngIf="courseForm.get('startTime')?.hasError('required')">La hora de inicio es
+          obligatoria</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Hora de Finalización</mat-label>
+        <input matInput formControlName="endTime" type="time" required />
+        <mat-error *ngIf="courseForm.get('endTime')?.hasError('required')">La hora de finalización es
+          obligatoria</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="full-width">
@@ -27,7 +50,8 @@
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Profesor</mat-label>
         <input matInput formControlName="teacher" required />
-        <mat-error *ngIf="courseForm.get('teacher')?.hasError('required')">El nombre del profesor es obligatorio</mat-error>
+        <mat-error *ngIf="courseForm.get('teacher')?.hasError('required')">El nombre del profesor es
+          obligatorio</mat-error>
       </mat-form-field>
 
       <div class="button-container">
@@ -37,103 +61,151 @@
   </mat-card-content>
 </mat-card>
 
-  
-  <!-- Lista de Cursos -->
-  <div class="table-container">
-    <h2>Lista de Cursos</h2>
-  
-    <!-- Campo de búsqueda -->
-    <mat-form-field appearance="fill">
-      <mat-label>Buscar curso</mat-label>
-      <input matInput [(ngModel)]="searchText" (keyup)="applyFilter()" placeholder="Filtrar por nombre o profesor" />
-    </mat-form-field>
-  
-    <!-- Tabla -->
-    <table mat-table [dataSource]="filteredDataSource || dataSource">
-      <!-- Columna id -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Id</th>
-        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-      </ng-container>
-  
-      <!-- Columna Nombre -->
-      <ng-container matColumnDef="courseName">
-        <th mat-header-cell *matHeaderCellDef appHeaderFontSize> Nombre del Curso </th>
-        <td mat-cell *matCellDef="let course">
-          <ng-container *ngIf="course.isEditing; else nameView">
-            <input [(ngModel)]="course.courseName" placeholder="Nombre del curso" style="width: 100%; border: none; background: transparent;">
-          </ng-container>
-          <ng-template #nameView>
-            {{ course.courseName }}
-          </ng-template>
-        </td>
-      </ng-container>
-  
-      <!-- Descripción -->
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef appHeaderFontSize> Descripción </th>
-        <td mat-cell *matCellDef="let course">
-          <ng-container *ngIf="course.isEditing; else descriptionView">
-            <input [(ngModel)]="course.description" placeholder="Descripción" style="width: 100%; border: none; background: transparent;">
-          </ng-container>
-          <ng-template #descriptionView>
-            {{ course.description }}
-          </ng-template>
-        </td>
-      </ng-container>
-  
-      <!-- Duración -->
-      <ng-container matColumnDef="duration">
-        <th mat-header-cell *matHeaderCellDef appHeaderFontSize> Duración (horas) </th>
-        <td mat-cell *matCellDef="let course">
-          <ng-container *ngIf="course.isEditing; else durationView">
-            <input type="number" [(ngModel)]="course.duration" placeholder="Duración" style="width: 100%; border: none; background: transparent;">
-          </ng-container>
-          <ng-template #durationView>
-            {{ course.duration }}
-          </ng-template>
-        </td>
-      </ng-container>
-  
-      <!-- Profesor -->
-      <ng-container matColumnDef="teacher">
-        <th mat-header-cell *matHeaderCellDef appHeaderFontSize> Profesor </th>
-        <td mat-cell *matCellDef="let course">
-          <ng-container *ngIf="course.isEditing; else teacherView">
-            <input [(ngModel)]="course.teacher" placeholder="Profesor" style="width: 100%; border: none; background: transparent;">
-          </ng-container>
-          <ng-template #teacherView>
-            {{ course.teacher }}
-          </ng-template>
-        </td>
-      </ng-container>
-  
-      <!-- Acciones -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef appHeaderFontSize> Acciones </th>
-        <td mat-cell *matCellDef="let course; let i = index">
-          <ng-container *ngIf="course.isEditing; else editButtons">
-            <button mat-icon-button (click)="saveEdit(i)">
-              <mat-icon style="color: green;">check</mat-icon>
-            </button>
-            <button mat-icon-button (click)="cancelEdit(i)">
-              <mat-icon style="color: red;">close</mat-icon>
-            </button>
-          </ng-container>
-          <ng-template #editButtons>
-            <button mat-icon-button (click)="enableEdit(i)">
-              <mat-icon style="color: blue;">edit</mat-icon>
-            </button>
-            <button mat-icon-button (click)="deleteCourse(i)">
-              <mat-icon style="color: red;">delete</mat-icon>
-            </button>
-          </ng-template>
-        </td>
-      </ng-container>
-  
-      <!-- Filas y columnas -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </div>
-  
+
+<!-- Lista de Cursos -->
+<div class="table-container">
+  <h2>Lista de Cursos</h2>
+
+  <!-- Campo de búsqueda -->
+  <mat-form-field appearance="fill">
+    <mat-label>Buscar curso</mat-label>
+    <input matInput [(ngModel)]="searchText" (keyup)="applyFilter()" placeholder="Filtrar por nombre o profesor" />
+  </mat-form-field>
+
+  <!-- Tabla -->
+  <table mat-table [dataSource]="filteredDataSource || dataSource">
+    <!-- Columna id -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Columna Nombre -->
+    <ng-container matColumnDef="courseName">
+      <th mat-header-cell *matHeaderCellDef appHeaderFontSize> Nombre del Curso </th>
+      <td mat-cell *matCellDef="let course">
+        <ng-container *ngIf="course.isEditing; else nameView">
+          <input [(ngModel)]="course.courseName" placeholder="Nombre del curso"
+            style="width: 100%; border: none; background: transparent;">
+        </ng-container>
+        <ng-template #nameView>
+          {{ course.courseName }}
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Descripción -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef appHeaderFontSize> Descripción </th>
+      <td mat-cell *matCellDef="let course">
+        <ng-container *ngIf="course.isEditing; else descriptionView">
+          <input [(ngModel)]="course.description" placeholder="Descripción"
+            style="width: 100%; border: none; background: transparent;">
+        </ng-container>
+        <ng-template #descriptionView>
+          {{ course.description }}
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Días de Curso -->
+    <ng-container matColumnDef="courseDays">
+      <th mat-header-cell *matHeaderCellDef> Días de Curso </th>
+      <td mat-cell *matCellDef="let course">
+        <ng-container *ngIf="course.isEditing; else courseDaysView">
+          <input [(ngModel)]="course.courseDays" placeholder="Días de curso"
+            style="width: 100%; border: none; background: transparent;">
+        </ng-container>
+        <ng-template #courseDaysView>
+          {{ course.courseDays }}
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Hora de Inicio -->
+    <ng-container matColumnDef="startTime">
+      <th mat-header-cell *matHeaderCellDef> Hora de Inicio </th>
+      <td mat-cell *matCellDef="let course">
+        <ng-container *ngIf="course.isEditing; else startTimeView">
+          <input type="time" [(ngModel)]="course.startTime" placeholder="Hora de inicio"
+            style="width: 100%; border: none; background: transparent;">
+        </ng-container>
+        <ng-template #startTimeView>
+          {{ course.startTime }}
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Hora de Finalización -->
+    <ng-container matColumnDef="endTime">
+      <th mat-header-cell *matHeaderCellDef> Hora de Finalización </th>
+      <td mat-cell *matCellDef="let course">
+        <ng-container *ngIf="course.isEditing; else endTimeView">
+          <input type="time" [(ngModel)]="course.endTime" placeholder="Hora de finalización"
+            style="width: 100%; border: none; background: transparent;">
+        </ng-container>
+        <ng-template #endTimeView>
+          {{ course.endTime }}
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Duración -->
+    <ng-container matColumnDef="duration">
+      <th mat-header-cell *matHeaderCellDef appHeaderFontSize> Duración (horas) </th>
+      <td mat-cell *matCellDef="let course">
+        <ng-container *ngIf="course.isEditing; else durationView">
+          <input type="number" [(ngModel)]="course.duration" placeholder="Duración"
+            style="width: 100%; border: none; background: transparent;">
+        </ng-container>
+        <ng-template #durationView>
+          {{ course.duration }}
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Profesor -->
+    <ng-container matColumnDef="teacher">
+      <th mat-header-cell *matHeaderCellDef appHeaderFontSize> Profesor </th>
+      <td mat-cell *matCellDef="let course">
+        <ng-container *ngIf="course.isEditing; else teacherView">
+          <input [(ngModel)]="course.teacher" placeholder="Profesor"
+            style="width: 100%; border: none; background: transparent;">
+        </ng-container>
+        <ng-template #teacherView>
+          {{ course.teacher }}
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Acciones -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef appHeaderFontSize> Acciones </th>
+      <td mat-cell *matCellDef="let course; let i = index">
+        <ng-container *ngIf="course.isEditing; else editButtons">
+          <button mat-icon-button (click)="saveEdit(i)">
+            <mat-icon style="color: green;">check</mat-icon>
+          </button>
+          <button mat-icon-button (click)="cancelEdit(i)">
+            <mat-icon style="color: red;">close</mat-icon>
+          </button>
+        </ng-container>
+        <ng-template #editButtons>
+          <button mat-icon-button (click)="enableEdit(i)">
+            <mat-icon style="color: blue;">edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteCourse(i)">
+            <mat-icon style="color: red;">delete</mat-icon>
+          </button>
+          <button mat-icon-button (click)="viewCourseDetails(course)">
+            <mat-icon style="color: #555;">visibility</mat-icon>
+          </button>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Filas y columnas -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

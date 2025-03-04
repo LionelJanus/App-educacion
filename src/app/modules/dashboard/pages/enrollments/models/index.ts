@@ -7,4 +7,5 @@ export interface Enrollment {
   courseId: string;
   course?: Course;
   student?: Student;
+  
 }

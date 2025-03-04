@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivateFn } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { DashboardComponent } from './dashboard.component';
@@ -10,6 +10,7 @@ import { authGuard } from '../../core/guards/auth.guard';
 import { EnrollmentsComponent } from './pages/enrollments/enrollments.component';
 import { adminGuard } from '../../core/guards/admin.guard';
 import { UsersComponent } from './pages/users/users.component';
+import { RoleVisibilityDirective } from '../../shared/directives/rolevisibility.directive';
 
 
 
@@ -43,6 +44,7 @@ const routes: Routes = [
 
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige a 'home' por defecto
   { path: 'home', component: HomeComponent }, // Ruta para el componente Home
+  { path:'students', component:StudentsComponent, canActivate: [authGuard], data: {roles: ['ADMIN','STUDENT']}},
   { path: 'courses', component: CoursesComponent, canActivate: [authGuard], data: { roles: ['ADMIN', 'TEACHER'] } },  
   { path: 'teachers', component: TeachersComponent, canActivate: [authGuard], data: { roles: ['ADMIN','TEACHER'] } } ,
   { path: 'enrollment', component: EnrollmentsComponent, canActivate: [authGuard], data: { roles: ['ADMIN','TEACHER','STUDENT'] } },

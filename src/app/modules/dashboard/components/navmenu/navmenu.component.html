@@ -7,6 +7,12 @@
     <mat-icon>list</mat-icon>
     <span>Inscripcion</span>
   </a>
+
+  <a mat-list-item [routerLink]="['/dashboard/students']" [appRoleVisibility]="['ADMIN','TEACHER','STUDENT']">
+    <mat-icon>list</mat-icon>
+    <span>Estudiantes</span>
+  </a>
+
   <a mat-list-item [routerLink]="['/dashboard/courses']" [appRoleVisibility]="['ADMIN','TEACHER']">
     <mat-icon>list</mat-icon>
     <span>Cursos</span>
