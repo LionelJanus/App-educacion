@@ -6,6 +6,9 @@ import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class EnrollmentsService {
+  getEnrollmentsByStudent(studentId: import("../../modules/dashboard/pages/users/models").User | null) {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private http: HttpClient) {}
 
@@ -18,9 +21,9 @@ export class EnrollmentsService {
   }
   
 
-
-
   getEnrollments(): Observable<Enrollment[]> {
     return this.http.get<Enrollment[]>(this.apiUrl);
   }
+
+  
 }

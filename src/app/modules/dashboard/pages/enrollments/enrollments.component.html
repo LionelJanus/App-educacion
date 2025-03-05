@@ -46,7 +46,9 @@
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Curso</mat-label>
         <mat-select formControlName="course" required>
-          <mat-option *ngFor="let course of courses" [value]="course.id">{{ course.courseName }}</mat-option>
+          <mat-option *ngFor="let course of courses" [value]="course.id">
+            {{ course.courseName }} 
+          </mat-option>
         </mat-select>
         <mat-error *ngIf="studentForm.get('course')?.hasError('required')">El curso es obligatorio</mat-error>
       </mat-form-field>

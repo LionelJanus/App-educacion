@@ -60,224 +60,84 @@
       "startTime": "11:00",
       "endTime": "12:00",
       "isEditing": false
+    },
+    {
+      "id": "6eb4",
+      "courseName": "Linux",
+      "description": "S.Operativo",
+      "duration": 50,
+      "teacher": "Lionel",
+      "courseDays": [
+        "Lunes",
+        "Jueves"
+      ],
+      "startTime": "15:00",
+      "endTime": "18:00",
+      "isEditing": false
     }
   ],
   "students": [
     {
-      "id": "H36Voj",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 38,
-      "email": "saasjhdj@email.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "Angular",
-      "isEditing": true
-    },
-    {
-      "id": "ol5a38",
-      "name": "Jose",
-      "lastname": "dhsjka",
-      "age": 30,
-      "email": "sdsad@email.com",
-      "country": "sdsa",
-      "address": "d",
-      "course": "as",
-      "isEditing": false
-    },
-    {
-      "id": "BupeoG",
-      "name": "alfredo",
-      "lastname": "Taffo",
-      "age": 35,
-      "email": "taffoni@email.com",
-      "country": "Argentina",
-      "address": "Av cordoba 2351",
-      "course": "1GcCg2",
-      "isEditing": false
-    },
-    {
-      "id": "f8in63",
-      "name": "sads",
-      "lastname": "sdsd",
-      "age": 30,
-      "email": "sdasd@email.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "AITjHb",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 23,
-      "email": "sdada@gmail.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "35d8",
-      "isEditing": false
-    },
-    {
-      "id": "9oE5wK",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 30,
-      "email": "sadasd@email.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "ofBqII",
-      "name": "Hugo",
-      "lastname": "Januszevski",
-      "age": 50,
-      "email": "hugo@email.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "Hct4Ro",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 28,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "koFopA",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 23,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "2zNRYj",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 38,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "w1Ssgw",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 39,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "BeUGrL",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 39,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "35d8",
-      "isEditing": false
-    },
-    {
-      "id": "zvOjZ7",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 39,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "HETPgE",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 39,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "w6pHCy",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 39,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "vn7yYR",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 39,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "FVOkC6",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 2,
-      "email": "dada@hotmail.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "jnMGG8",
-      "name": "Hugo",
-      "lastname": "Januszevski",
-      "age": 50,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "ou3E6v",
-      "name": "Juan",
-      "lastname": "dsad",
-      "age": 30,
-      "email": "sdad@email.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "OhDcoT",
+      "id": "uDQHzn",
       "name": "Lionel",
       "lastname": "Januszevski",
       "age": 40,
-      "email": "sdad@email.com",
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "cebc",
+      "isEditing": false
+    },
+    {
+      "id": "IthVlg",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 38,
+      "email": "lj@student.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "6eb4",
+      "isEditing": false
+    },
+    {
+      "id": "VmUT56",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 23,
+      "email": "S@EMAIL.COM",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "6eb4",
+      "isEditing": false
+    },
+    {
+      "id": "91sysW",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 30,
+      "email": "adsd@email.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "6eb4",
+      "isEditing": false
+    },
+    {
+      "id": "VmfalS",
+      "name": "Hugo",
+      "lastname": "nose",
+      "age": 30,
+      "email": "hugo@email.com",
+      "country": "Argentina",
+      "address": "Soldado De La Frontera",
+      "course": "6eb4",
+      "isEditing": false
+    },
+    {
+      "id": "MHuPRz",
+      "name": "Lionel",
+      "lastname": "Januszevski",
+      "age": 39,
+      "email": "lj@student.com",
       "country": "Argentina",
       "address": "Soldado De La Frontera",
       "course": "cebc",
@@ -286,8 +146,9 @@
   ],
   "enrollments": [
     {
-      "id": "2c10",
-      "name": "SQL"
+      "id": "38iwT0",
+      "studentId": "MHuPRz",
+      "courseId": "cebc"
     }
   ]
 }

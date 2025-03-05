@@ -22,6 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
+
 @NgModule({
   declarations: [RoleVisibilityDirective],
   imports: [
@@ -29,6 +30,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   ],
   exports:[
     MatIconModule,
+    MatTableModule,
     MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
