@@ -9,58 +9,15 @@
       "role": "ADMIN"
     },
     {
-      "id": "m2wOU0",
-      "name": "Lionel",
+      "id": "C0QNRO",
+      "name": "Lionel Januszevski",
       "email": "lj.lionel86@gmail.com",
-      "role": "ADMIN",
-      "password": "123456",
-      "accessToken": "RByCzKkDETXUIKbxk7vFumVxoZ7EmUJE"
-    },
-    {
-      "id": "7iDJ6F",
-      "name": "Lionel",
-      "email": "lj_lionel@hotmail.com",
       "role": "TEACHER",
       "password": "123456",
-      "accessToken": "T78Y7uSu8DdFYlt3s0xDDzsiDU6PCt3Q"
-    },
-    {
-      "id": "LSfFHS",
-      "name": "LJ",
-      "email": "lj@student.com",
-      "role": "STUDENT",
-      "password": "123456",
-      "accessToken": "UTl6UIXTMr2MX1tLMBgZ9wQMRI4cQUzr"
+      "accessToken": "q5Ig3qWfNOkHXG9zp9XKjlvle9t9cPP5"
     }
   ],
   "courses": [
-    {
-      "id": "cebc",
-      "courseName": "Reparacion de PC",
-      "description": "reparacion",
-      "duration": 50,
-      "teacher": "Lionel",
-      "courseDays": [
-        "Martes",
-        "Miércoles"
-      ],
-      "startTime": "15:00",
-      "endTime": "18:00",
-      "isEditing": false
-    },
-    {
-      "id": "35d8",
-      "courseName": "dsdsad",
-      "description": "sdsads",
-      "duration": 50,
-      "teacher": "sadsad",
-      "courseDays": [
-        "Miércoles"
-      ],
-      "startTime": "11:00",
-      "endTime": "12:00",
-      "isEditing": false
-    },
     {
       "id": "6eb4",
       "courseName": "Linux",
@@ -74,81 +31,23 @@
       "startTime": "15:00",
       "endTime": "18:00",
       "isEditing": false
+    },
+    {
+      "id": "4778",
+      "courseName": "Windows",
+      "description": "Utilizacion de Sistema Operativo",
+      "duration": 100,
+      "teacher": "Hugo",
+      "courseDays": [
+        "Lunes",
+        "Viernes"
+      ],
+      "startTime": "12:00",
+      "endTime": "15:00",
+      "isEditing": false
     }
   ],
   "students": [
-    {
-      "id": "uDQHzn",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 40,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    },
-    {
-      "id": "IthVlg",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 38,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "6eb4",
-      "isEditing": false
-    },
-    {
-      "id": "VmUT56",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 23,
-      "email": "S@EMAIL.COM",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "6eb4",
-      "isEditing": false
-    },
-    {
-      "id": "91sysW",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 30,
-      "email": "adsd@email.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "6eb4",
-      "isEditing": false
-    },
-    {
-      "id": "VmfalS",
-      "name": "Hugo",
-      "lastname": "nose",
-      "age": 30,
-      "email": "hugo@email.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "6eb4",
-      "isEditing": false
-    },
-    {
-      "id": "MHuPRz",
-      "name": "Lionel",
-      "lastname": "Januszevski",
-      "age": 39,
-      "email": "lj@student.com",
-      "country": "Argentina",
-      "address": "Soldado De La Frontera",
-      "course": "cebc",
-      "isEditing": false
-    }
-  ],
-  "enrollments": [
-    {
-      "id": "38iwT0",
-      "studentId": "MHuPRz",
-      "courseId": "cebc"
-    }
+   
   ]
 }

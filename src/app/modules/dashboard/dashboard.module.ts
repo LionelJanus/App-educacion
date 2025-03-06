@@ -5,6 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { TeachersComponent } from './pages/teachers/teachers.component';
 import { EnrollmentsComponent } from './pages/enrollments/enrollments.component';
+import { StudentsComponent } from './pages/students/students.component';
 
 
 
@@ -13,6 +14,7 @@ import { EnrollmentsComponent } from './pages/enrollments/enrollments.component'
   declarations: [
     HomeComponent,
     TeachersComponent,
+    StudentsComponent
     
     
   ],
@@ -22,6 +24,6 @@ import { EnrollmentsComponent } from './pages/enrollments/enrollments.component'
     
     
   ],
-  exports: []
+  exports: [StudentsComponent]
 })
 export class DashboardModule { }

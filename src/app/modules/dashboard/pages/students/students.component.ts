@@ -1,60 +1,83 @@
 import { Component, OnInit } from '@angular/core';
-import { EnrollmentsService } from '../../../../core/services/enrollments.service';
-import { CoursesService } from '../../../../core/services/courses.service';
-import { AuthService } from '../../../../core/services/authservice';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Course } from '../courses/models/courses.model';
-import { Enrollment } from '../enrollments/models';
+import { StudentsService } from '../../../../core/services/students.service'; // Ajusta la ruta a tu archivo
+import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-students',
-  standalone: false,
+  standalone:false,
   templateUrl: './students.component.html',
-  styleUrl: './students.component.scss'
+  styleUrls: ['./students.component.css']
 })
 export class StudentsComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'courseName', 'description', 'teacher', 'actions'];
-  enrolledCourses: Course[] = []; // Cursos en los que el estudiante está inscrito
+  studentId: string='';
+  studentCourses: any[] = [];
 
   constructor(
-    private authService: AuthService,
-    private enrollmentsService: EnrollmentsService,
-    private coursesService: CoursesService,
-    private snackBar: MatSnackBar
+    private studentsService: StudentsService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.loadStudentCourses();
+    // Obtener el ID del estudiante desde la URL
+    this.studentId = this.route.snapshot.paramMap.get('id')!;
+    
+    // Obtener los cursos del estudiante (o todos los cursos)
+    this.studentsService.getCourses().subscribe(
+      (courses) => {
+        this.studentCourses = courses;
+      },
+      (error) => {
+        console.error('Error al obtener los cursos del estudiante', error);
+      }
+    );
   }
 
- loadStudentCourses(): void {
-  const currentUser = this.authService.getCurrentUser();
-  
-  if (currentUser && currentUser.role === 'STUDENT') {
-    const studentId = currentUser.id;
-
-    this.enrollmentsService.getEnrollments().subscribe((enrollments: Enrollment[]) => {
-      const studentEnrollments = enrollments.filter(enrollment => enrollment.studentId === studentId);
-
-      const courseRequests = studentEnrollments.map(enrollment => 
-        this.coursesService.getCourseById(enrollment.courseId).toPromise()
-      );
-
-      // Resolver todas las promesas y filtrar cursos no encontrados
-      Promise.all(courseRequests)
-        .then((courses) => {
-          this.enrolledCourses = courses.filter((course): course is Course => !!course); // Filtra valores undefined
-        })
-        .catch(() => {
-          this.openSnackBar('Error al cargar los cursos', 'Cerrar');
-        });
+   // Ver presentismo del curso
+   viewAttendance(course: any) {
+    Swal.fire({
+      title: `Presentismo - ${course.courseName}`,
+      text: 'Aquí se mostrarán las asistencias del estudiante.',
+      icon: 'info',
+      confirmButtonText: 'Cerrar'
     });
-  } else {
-    this.openSnackBar('No tienes permisos para ver los cursos', 'Cerrar');
   }
-}
 
-  openSnackBar(message: string, action: string): void {
-    this.snackBar.open(message, action, { duration: 3000 });
+  // Ver notas del curso
+  viewGrades(course: any) {
+    Swal.fire({
+      title: `Notas - ${course.courseName}`,
+      text: 'Aquí se mostrarán las calificaciones del estudiante.',
+      icon: 'info',
+      confirmButtonText: 'Cerrar'
+    });
+  }
+
+  // Confirmar y dar de baja al estudiante del curso
+  confirmUnenroll(course: any) {
+    Swal.fire({
+      title: `¿Deseas darte de baja de ${course.courseName}?`,
+      text: "Esta acción no se puede deshacer.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, dar de baja',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.unenrollCourse(course);
+      }
+    });
+  }
+
+  // Lógica para eliminar el curso del estudiante
+  unenrollCourse(course: any) {
+    this.studentCourses = this.studentCourses.filter(c => c.id !== course.id);
+    Swal.fire(
+      '¡Dado de Baja!',
+      `Has sido dado de baja de ${course.courseName}.`,
+      'success'
+    );
   }
 }

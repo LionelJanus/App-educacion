@@ -5,6 +5,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { User } from '../../modules/dashboard/pages/users/models';
 import { generateRandomString } from '../../shared/utils';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 const FAKE_USERS_DB: User[] = [
   {
@@ -48,7 +49,7 @@ export class AuthService {
     // Verificar si el usuario con ese email ya existe
     this.http.get<User[]>(this.apiUrl).subscribe(users => {
       if (users.some(user => user.email === newUser.email)) {
-        alert('El usuario con este correo ya existe');
+        Swal.fire("El usuario con este correo ya existe!");
         return;
       }
 
@@ -58,45 +59,56 @@ export class AuthService {
 
       // Realizar la solicitud POST para agregar el nuevo usuario
       this.http.post(this.apiUrl, newUser).subscribe(() => {
-        alert('Usuario creado con éxito');
+        Swal.fire("Usuario creado con exito!");
       });
     });
   }
 
   // Método de login
-  login(payload: LoginPayload): void {
-    this.http.get<User[]>(this.apiUrl).subscribe(users => {
-      const loginResult = users.find(
-        (user) => user.email === payload.email && user.password === payload.password
-      );
-      if (!loginResult) {
-        alert('Email o password inválidos');
-        return;
-      }
-      localStorage.setItem('access_token', loginResult.accessToken);
-      this._authUser$.next(loginResult);
-      this.router.navigate(['dashboard', 'home']);
-    });
+  login(payload: LoginPayload): Observable<User | null> {
+    return this.http.get<User[]>(this.apiUrl).pipe(
+      map(users => {
+        const loginResult = users.find(
+          user => user.email === payload.email && user.password === payload.password
+        );
+        if (loginResult) {
+          localStorage.setItem('access_token', loginResult.accessToken);
+          localStorage.setItem('userId', loginResult.id); // Guardamos el ID del usuario también
+          this._authUser$.next(loginResult);
+        }
+        return loginResult || null;
+      })
+    );
   }
+  
+  
 
   // Método de logout
   logout(): void {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('userId'); // Eliminar el ID también si es necesario
     this._authUser$.next(null);
     this.router.navigate(['auth', 'login']);
   }
+  
 
   // Verificar si está autenticado
   isAuthenticated(): Observable<boolean> {
-    const storedUser = localStorage.getItem('access_token') || '';
+    const storedToken = localStorage.getItem('access_token');
+    if (!storedToken) {
+      this._authUser$.next(null); // Si no hay token, no hay usuario autenticado
+      return new Observable<boolean>((observer) => observer.next(false));
+    }
+  
     return this.http.get<User[]>(this.apiUrl).pipe(
       map(users => {
-        const user = users.find(u => u.accessToken === storedUser);
+        const user = users.find(u => u.accessToken === storedToken);
         this._authUser$.next(user || null);
         return !!user;
       })
     );
   }
+  
 
   // Obtener el rol de usuario actual
   getUserRole(): Observable<string | null> {

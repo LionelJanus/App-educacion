@@ -44,7 +44,6 @@ export class EnrollmentEffects {
           id: generateRandomString(6), // Si el servidor no genera el ID automáticamente
         };
   
-        console.log('Datos a Enviar:', enrollmentData); // Verifica los datos
   
         return this.enrollmentsService.createEnrollment(enrollmentData).pipe(
           map((enrollment) => EnrollmentActions.createEnrollmentSuccess({ data: enrollment })),

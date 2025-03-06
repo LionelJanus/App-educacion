@@ -4,7 +4,7 @@ import { AuthService } from '../services/authservice';
 import { map } from 'rxjs';
 
 export const adminGuard: CanActivateFn = (route, state) => {
-  console.log('[adminGuard] Se disparó adminGuard');
+ 
 
   const router = inject(Router);
   const authService = inject(AuthService);

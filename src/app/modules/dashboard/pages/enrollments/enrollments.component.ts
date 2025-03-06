@@ -14,6 +14,7 @@ import { Student } from '../students/models/student.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StudentsService } from '../../../../core/services/students.service';
 import { selectEnrollments, selectEnrollmentsError, selectIsLoadingEnrollments } from './store/enrollment.selectors';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-enrollments',
@@ -83,10 +84,10 @@ export class EnrollmentsComponent implements OnInit, OnDestroy {
     this.coursesService.getCourses().subscribe({
       next: (courses) => {
         this.courses = courses;
-        console.log("cursos",this.courses);
+       
       },
       error: (err: any) => {
-        console.error('Error al cargar cursos', err);
+      
         this.openSnackBar('Error al cargar cursos', 'Cerrar');
       },
     });
@@ -99,7 +100,7 @@ export class EnrollmentsComponent implements OnInit, OnDestroy {
         this.filteredDataSource = students;
       },
       error: (err: any) => {
-        console.error('Error al cargar estudiantes', err);
+       
         this.openSnackBar('Error al cargar estudiantes', 'Cerrar');
       },
     });
@@ -127,52 +128,41 @@ export class EnrollmentsComponent implements OnInit, OnDestroy {
             .filter((course) => course !== undefined); // Filtrar cursos no encontrados
         },
         error: (err: any) => {  // Tipado de error
-          console.error('Error al cargar inscripciones', err);
+        
           this.openSnackBar('Error al cargar cursos', 'Cerrar');
         }
       });
     }
   }
 
-  createEnrollment(): void {
-
-
-    if (this.enrollmentForm.valid) {
-      const studentId = this.enrollmentForm.get('studentId')?.value;
-      const courseId = this.enrollmentForm.get('courseId')?.value;
-
-      console.log("Student ID:", studentId);
-      console.log("Course ID:", courseId);
-
-      if (!studentId || !courseId) {
-        this.openSnackBar('Por favor, selecciona un estudiante y un curso.', 'Cerrar');
+  createEnrollment(studentId: string, courseId: string): void {
+    this.enrollmentService.getEnrollments().subscribe((enrollments) => {
+      const existingEnrollment = enrollments.find(
+        (enrollment) => enrollment.studentId === studentId && enrollment.courseId === courseId
+      );
+  
+      if (existingEnrollment) {
+        this.openSnackBar('El estudiante ya está inscrito en este curso.', 'Cerrar');
         return;
       }
-
-
+  
       const enrollmentData: Enrollment = {
         id: generateRandomString(6),
-        studentId: studentId,
-        courseId: courseId
+        studentId,
+        courseId
       };
-
+  
       this.enrollmentService.createEnrollment(enrollmentData).subscribe({
-        next: (response: Enrollment) => {
-          console.log('Inscripción creada con éxito', response);
+        next: () => {
+        
           this.openSnackBar('Inscripción realizada con éxito!', 'Cerrar');
         },
-        error: (err: any) => {
-          console.error('Error al crear inscripción', err);
-          this.openSnackBar('Error al realizar inscripción', 'Cerrar');
-        }
+        error: (err) => console.error('Error al realizar inscripción', err)
       });
-    } else {
-      console.warn("Formulario de inscripción inválido. Revisando errores...");
-      console.log("Errores de enrollmentForm:", this.enrollmentForm.errors);
-      this.enrollmentForm.markAllAsTouched();
-      this.enrollmentForm.updateValueAndValidity();
-    }
+    });
   }
+  
+  
 
   // ✅ Corrección de la función para generar un ID de longitud exacta
   generateRandomString(length: number): string {
@@ -180,63 +170,74 @@ export class EnrollmentsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log("Ejecutando onSubmit()");
-
     if (this.studentForm.valid) {
-      const newStudent: Student = { ...this.studentForm.value, isEditing: false };
-         // Obtener el ID del curso seleccionado
-         const courseId = this.studentForm.get('course')?.value;
-
-         if (!courseId) {
-           this.openSnackBar('Error: No se seleccionó un curso.', 'Cerrar');
-           return;
-         } 
-      this.studentsService.addStudent(newStudent).subscribe({
-        next: (student) => {
-          console.log("Estudiante agregado con éxito:", student);
-          this.openSnackBar('Te inscribiste exitosamente!', 'Cerrar');
-       
-          this.loadStudents();
-
-       
-          // Asignar ID del estudiante recién creado y el curso al formulario de inscripción
-          this.enrollmentForm.patchValue({
-            studentId: student.id,
-            courseId: courseId
-          });
-
-          // Verifica que el courseId se haya asignado correctamente
-          console.log("courseId en enrollmentForm:", this.enrollmentForm.get('courseId')?.value);
-
-          // 🔥 Forzar validación después de actualizar el formulario
-          this.enrollmentForm.markAllAsTouched();
-          this.enrollmentForm.updateValueAndValidity();
-
-          // Intentar la inscripción solo si el formulario es válido
-          if (this.enrollmentForm.valid) {
-            console.log("Llamando a createEnrollment()");
-            this.createEnrollment();
+      const formData = this.studentForm.value;
+  
+      this.studentsService.getStudents().subscribe((students) => {
+        const existingStudent = students.find(student => student.email === formData.email);
+  
+        if (existingStudent) {
+          // Verificar si ya está inscrito en el curso
+          if (existingStudent.courses && existingStudent.courses.includes(formData.course)) {
+            Swal.fire({
+              title: 'Estudiante ya inscrito',
+              text: `El estudiante ${existingStudent.name} ya está inscrito en el curso ${formData.course}.`,
+              icon: 'info',  // Usamos 'info' porque el estudiante ya está inscrito
+              confirmButtonText: 'Cerrar',
+            });
           } else {
-            console.error("Formulario de inscripción inválido:", this.enrollmentForm.errors);
+            // Si no está inscrito en el curso, agregarlo
+            const updatedStudent: Student = {
+              ...existingStudent,
+              courses: [...(existingStudent.courses || []), formData.course]
+            };
+  
+            this.studentsService.updateStudent(existingStudent.id, updatedStudent).subscribe({
+              next: () => {
+                Swal.fire({
+                  title: 'Inscripción exitosa',
+                  text: `El estudiante ${existingStudent.name} ha sido inscrito en el curso ${formData.courseName}.`,
+                  icon: 'success',  // Usamos 'success' porque ahora el estudiante está inscrito
+                  confirmButtonText: 'Cerrar',
+                });
+                this.createEnrollment(existingStudent.id, formData.course);
+              },
+              error: (err) => console.error('Error al actualizar inscripción', err)
+            });
           }
-          this.studentForm.reset();
-        
-        },
-        error: (err: any) => {
-          console.error('Error al agregar alumno', err);
-          this.openSnackBar('Error al Inscribirte', 'Cerrar');
-        },
+        } else {
+          const newStudent: Student = { 
+            id: generateRandomString(6), 
+            ...formData, 
+            courses: [formData.course],  // Se almacena como array
+            isEditing: false 
+          };
+  
+          this.studentsService.addStudent(newStudent).subscribe({
+            next: (student) => {
+              Swal.fire({
+                title: 'Estudiante agregado',
+                text: `El estudiante ${student.name} ha sido registrado y asignado al curso ${formData.course}.`,
+                icon: 'success',  // Usamos 'success' porque el estudiante fue agregado y asignado al curso
+                confirmButtonText: 'Cerrar',
+              });
+              this.createEnrollment(student.id, formData.course);
+            },
+            error: (err) => console.error('Error al agregar alumno', err)
+          });
+        }
       });
     } else {
-
-      console.warn("Formulario de estudiante inválido. Revisando errores...");
+      console.warn("Formulario de estudiante inválido.");
       this.studentForm.markAllAsTouched();
     }
   }
-
- 
-
+  
+  
   openSnackBar(message: string, action: string): void {
     this.snackBar.open(message, action, { duration: 3000 });
   }
+
+   
+  
 }

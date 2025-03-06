@@ -133,16 +133,39 @@ export class CoursesFormComponent implements OnInit {
     const updatedCourse = { ...this.dataSource[index], isEditing: false }; // Asegurar que se quite isEditing
     const courseId = updatedCourse.id;  
   
-    this.coursesService.updateCourse(courseId, updatedCourse).subscribe(
-      (updated) => {
-        this.dataSource[index] = { ...updated, isEditing: false }; // Mantener la reactividad
-        this.filteredDataSource = [...this.dataSource]; // Forzar actualización de la lista
-        this.openSnackBar('Curso actualizado exitosamente!', 'Cerrar');
-      },
-      (error) => {
-        this.openSnackBar('Error al actualizar el curso', 'Cerrar');
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas actualizar este curso?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, actualizar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.coursesService.updateCourse(courseId, updatedCourse).subscribe(
+          (updated) => {
+            this.dataSource[index] = { ...updated, isEditing: false }; // Mantener la reactividad
+            this.filteredDataSource = [...this.dataSource]; // Forzar actualización de la lista
+            
+            Swal.fire({
+              icon: 'success',
+              title: 'Curso actualizado exitosamente!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          },
+          (error) => {
+            Swal.fire({
+              icon: 'error',  
+              title: 'Error al actualizar el curso',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+        );
       }
-    );
+    });
   }
   
   cancelEdit(index: number): void {
@@ -193,7 +216,7 @@ export class CoursesFormComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      console.log('El diálogo de detalles del curso se cerró');
+     
     });
   }
 

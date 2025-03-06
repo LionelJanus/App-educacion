@@ -1,15 +1,29 @@
-<table mat-table [dataSource]="enrolledCourses" class="mat-elevation-z8">
-  <!-- Definir las columnas -->
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>ID</th>
-    <td mat-cell *matCellDef="let course">{{ course.id }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="courseName">
-    <th mat-header-cell *matHeaderCellDef>Nombre del curso</th>
-    <td mat-cell *matCellDef="let course">{{ course.courseName }}</td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="['id', 'courseName']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['id', 'courseName'];"></tr>
+<h1>Mis Cursos</h1>
+<table class="table-auto w-full border-collapse border border-gray-300 shadow-lg rounded-lg">
+  <thead class="bg-blue-500 text-white">
+    <tr>
+      <th class="px-4 py-2 border">Curso</th>
+      <th class="px-4 py-2 border">Duración</th>
+      <th class="px-4 py-2 border">Profesor</th>
+      <th class="px-4 py-2 border">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let course of studentCourses" class="hover:bg-gray-100">
+      <td class="px-4 py-2 border">{{ course.courseName }}</td>
+      <td class="px-4 py-2 border">{{ course.duration }} hs</td>
+      <td class="px-4 py-2 border">{{ course.teacher }}</td>
+      <td class="px-4 py-2 border text-center">
+        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded m-1" (click)="viewAttendance(course)">
+          Presentismo
+        </button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded m-1" (click)="viewGrades(course)">
+          Notas
+        </button>
+        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded m-1" (click)="confirmUnenroll(course)">
+          Dar de Baja
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>

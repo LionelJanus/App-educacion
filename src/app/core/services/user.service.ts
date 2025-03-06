@@ -13,18 +13,18 @@ export class UsersService {
 
   private apiUrl = `${environment.baseApiUrl}/courses`; // URL de tu JSON server
   
-  constructor(private httpClient: HttpClient, private store: Store) {}
+  constructor(private http: HttpClient, private store: Store) {}
 
   createUser(user: User): Observable<User> {
-    return this.httpClient.post<User>(`${environment.baseApiUrl}/users`, user);
+    return this.http.post<User>(`${environment.baseApiUrl}/users`, user);
   }
   
   getUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${environment.baseApiUrl}/users`);
+    return this.http.get<User[]>(`${environment.baseApiUrl}/users`);
   }
 
   getStudentUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(
+    return this.http.get<User[]>(
       `${environment.baseApiUrl}/users?role=STUDENT`
     );
   }
@@ -34,7 +34,7 @@ export class UsersService {
   }
 
   deleteUser(id: string): Observable<void> {
-    return this.httpClient.delete<void>(`${environment.baseApiUrl}/users/${id}`);
+    return this.http.delete<void>(`${environment.baseApiUrl}/users/${id}`);
   }
 
   resetUserState(): void {
@@ -43,7 +43,7 @@ export class UsersService {
 
   // Obtener detalles de un usuario por ID
   getUserById(userId: string): Observable<User> {
-    return this.httpClient.get<User>(`${this.apiUrl}/${userId}`);
+    return this.http.get<User>(`${this.apiUrl}/${userId}`);
   }
 
 }

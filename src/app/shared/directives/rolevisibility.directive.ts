@@ -15,7 +15,6 @@ export class RoleVisibilityDirective implements OnInit, OnDestroy {
   ngOnInit() {
   this.subscription = this.authService.getUserRole().subscribe(role => {
     const userRole = role || ''; // Asegura que siempre sea una cadena
-    console.log('User Role:', userRole); // Depuración
     
     if (this.appRoleVisibility.includes(userRole)) {
       this.el.nativeElement.style.display = 'block'; // Mostrar

@@ -31,12 +31,17 @@ export class LoginComponent {
       this.loginForm.markAllAsTouched();
     return;
     }
-    this.authService.login(this.loginForm.value);
-     
-    this.authService.isAuthenticated().subscribe(isAuth => {
-      if (isAuth) {
+    this.authService.login(this.loginForm.value).subscribe(user => {
+      if (user) {
         this.router.navigate(['/dashboard/home']);
-  
+        this.authService.getUserRole().subscribe(role => {
+          this.snackBar.open(`Bienvenido, has iniciado sesión como: ${role}`, 'Cerrar', { duration: 3000 });
+        });
+      } else {
+        this.snackBar.open('Email o contraseña incorrectos.', 'Cerrar', { duration: 3000 });
+      }
+    });
+    
    
    // Mostrar el rol con un Snackbar
    this.authService.getUserRole().subscribe(role => {
@@ -44,7 +49,5 @@ export class LoginComponent {
       duration: 3000, 
     });
   });
-}
-});
 }
 }

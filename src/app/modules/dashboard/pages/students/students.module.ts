@@ -20,7 +20,7 @@ import { StudentsComponent } from './students.component';
     HighlightDirective,
     NameLastnamePipe,
     StudentFilterPipe,
-    StudentsComponent,
+    
 
   ],
   imports: [

@@ -40,7 +40,7 @@ export class CoursesService {
   getCourseDetails(courseId: string): Observable<Course> {
     return this.httpClient.get<Course>(`${this.apiUrl}/${courseId}`).pipe(
       map(course => {
-        console.log(course); // Verifica que el campo 'enrolledUsers' esté presente y tenga los datos
+        
         return course;
       })
     );
