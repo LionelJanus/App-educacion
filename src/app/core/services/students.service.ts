@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { Student } from '../../modules/dashboard/pages/students/models/student.model'; // Asegúrate de tener el modelo adecuado para Student
 import { environment } from '../../../environments/environment'; // Asegúrate de que la URL base esté configurada correctamente
 import { Course } from '../../modules/dashboard/pages/courses/models/courses.model';
@@ -14,6 +14,27 @@ export class StudentsService {
 
   constructor(private http: HttpClient, private store: Store) {}
 
+ 
+
+  getStudentsByTeacher(teacherName: string): Observable<Student[]> {
+    return this.getStudents().pipe(
+      switchMap((students) =>
+        this.getCourses().pipe(
+          map((courses) => {
+            // Filtrar los cursos que pertenecen al profesor
+            const teacherCourses = courses.filter(course => course.teacher === teacherName);
+            const teacherCourseIds = teacherCourses.map(course => course.id);
+  
+            // Filtrar los estudiantes inscritos en esos cursos
+            return students.filter(student =>
+              student.courses?.some(courseId => teacherCourseIds.includes(courseId))
+            );
+          })
+        )
+      )
+    );
+  }
+
   // Obtener todos los estudiantes desde la API
   getStudents(): Observable<Student[]> {
     return this.http.get<Student[]>(this.apiUrl,);
@@ -23,8 +44,6 @@ export class StudentsService {
 getCourses(): Observable<any[]> {
   return this.http.get<any[]>('http://localhost:3000/courses');
 }
-
-  
   
 
   // Obtener un estudiante por id desde la API

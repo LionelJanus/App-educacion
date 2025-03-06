@@ -1,1 +1,27 @@
 <h1>Profesores</h1>
+<h2>Alumnos inscritos en tus cursos</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+      <th>Cursos Inscritos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of students">
+      <td>{{ student.name }}</td>
+      <td>{{ student.lastname }}</td>
+      <td>{{ student.email }}</td>
+      <td>
+        <ul>
+          <li *ngFor="let courseId of student.courses">
+            {{ getCourseName(courseId) }}
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
