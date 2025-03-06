@@ -1,13 +1,13 @@
-<h1>Profesores</h1>
 <h2>Alumnos inscritos en tus cursos</h2>
 
-<table>
+<table class="students-table">
   <thead>
     <tr>
       <th>Nombre</th>
       <th>Apellido</th>
       <th>Email</th>
       <th>Cursos Inscritos</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -16,11 +16,26 @@
       <td>{{ student.lastname }}</td>
       <td>{{ student.email }}</td>
       <td>
-        <ul>
-          <li *ngFor="let courseId of student.courses">
-            {{ getCourseName(courseId) }}
-          </li>
-        </ul>
+        <table class="courses-table">
+          <tr *ngFor="let courseId of student.courses">
+            <td>{{ getCourseName(courseId) }}</td>
+            <td>
+              <div class="actions">
+                <!-- Botón para dar de baja -->
+                <button mat-icon-button (click)="removeStudent(student.id, courseId)" aria-label="Dar de Baja">🗑</button>
+
+                <!-- Input para registrar notas -->
+                <input matInput type="number" #gradeInput placeholder="Nota" min="0" max="10" aria-label="Nota" />
+
+                <button mat-raised-button color="primary" (click)="setGrade(student.id, courseId, gradeInput.valueAsNumber)">📚 Guardar Nota</button>
+
+                <!-- Botones para asistencia -->
+                <button mat-icon-button (click)="markAttendance(student.id, courseId, 'Presente')" aria-label="Marcar Presente">✔</button>
+                <button mat-icon-button (click)="markAttendance(student.id, courseId, 'Ausente')" aria-label="Marcar Ausente">❌</button>
+              </div>
+            </td>
+          </tr>
+        </table>
       </td>
     </tr>
   </tbody>

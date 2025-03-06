@@ -1,75 +1,88 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  thead {
-    background: linear-gradient(to right, #4a90e2, #357abd);
-    color: white;
-  }
-  
-  thead th {
-    padding: 12px;
-    text-align: left;
-    font-weight: bold;
-    border-bottom: 2px solid #ddd;
-  }
-  
-  tbody tr {
-    transition: background 0.3s ease-in-out;
-  }
-  
-  tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  tbody tr:hover {
-    background-color: #e3f2fd;
-  }
-  
-  td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  button {
-    padding: 6px 12px;
-    font-size: 14px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
-  button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  .bg-green-500 {
-    background-color: #28a745;
-    color: white;
-  }
-  .bg-green-500:hover {
-    background-color: #218838;
-  }
-  
-  .bg-blue-500 {
-    background-color: #007bff;
-    color: white;
-  }
-  .bg-blue-500:hover {
-    background-color: #0056b3;
-  }
-  
-  .bg-red-500 {
-    background-color: #dc3545;
-    color: white;
-  }
-  .bg-red-500:hover {
-    background-color: #c82333;
-  }
+/* Estilo para el encabezado */
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+  text-transform: uppercase;
+}
+
+/* Estilo de la tabla */
+.table-auto {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Estilo de las celdas de la tabla */
+th, td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #3182ce;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Efecto hover para las filas */
+tbody tr:hover {
+  background-color: #f7fafc;
+}
+
+/* Estilo de los botones */
+button {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Estilo para el botón "Presentismo" */
+button.bg-green-500 {
+  background-color: #48bb78;
+  border: none;
+  color: white;
+}
+
+button.bg-green-500:hover {
+  background-color: #38a169;
+  transform: scale(1.05);
+}
+
+/* Estilo para el botón "Notas" */
+button.bg-blue-500 {
+  background-color: #4299e1;
+  border: none;
+  color: white;
+}
+
+button.bg-blue-500:hover {
+  background-color: #3182ce;
+  transform: scale(1.05);
+}
+
+/* Estilo para el botón "Dar de Baja" */
+button.bg-red-500 {
+  background-color: #f56565;
+  border: none;
+  color: white;
+}
+
+button.bg-red-500:hover {
+  background-color: #e53e3e;
+  transform: scale(1.05);
+}
+
+/* Margen entre los botones */
+button.m-1 {
+  margin: 5px;
+}

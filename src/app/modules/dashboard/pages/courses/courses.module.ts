@@ -6,6 +6,7 @@ import { CoursesFormComponent } from './courses-form/courses-form.component';
 import { SharedModule } from '../../../../shared/shared.module';
 import { CoursesComponent } from './courses.component';
 import { CourseDetailsDialogComponent } from './course-details-dialog/course-details-dialog.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { CourseDetailsDialogComponent } from './course-details-dialog/course-det
   imports: [
     CommonModule,
     CoursesRoutingModule,
-    SharedModule
+    SharedModule,
+    MatCardModule,
   ]
 })
 export class CoursesModule { }

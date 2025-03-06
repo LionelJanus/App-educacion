@@ -95,9 +95,19 @@
       "address": "Soldado De La Frontera",
       "course": "a0b6",
       "courses": [
+        "3c5c",
         "a0b6"
       ],
-      "isEditing": false
+      "isEditing": false,
+      "attendance": {
+        "a0b6": [
+          "2025-03-06: Presente",
+          "2025-03-06: Ausente"
+        ]
+      },
+      "grades": {
+        "3c5c": null
+      }
     }
   ]
 }

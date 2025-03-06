@@ -15,6 +15,7 @@ import { EnrollmentsComponent } from './modules/dashboard/pages/enrollments/enro
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { userFeatureKey,reducer as userReducer  } from './modules/dashboard/pages/users/store/user.reducer';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -33,6 +34,7 @@ import { userFeatureKey,reducer as userReducer  } from './modules/dashboard/page
     AppRoutingModule,
     StudentsModule,
     CoursesModule,
+    MatCardModule,
     AuthModule,
     SharedModule,
     StoreModule.forRoot({ [userFeatureKey]: userReducer }),

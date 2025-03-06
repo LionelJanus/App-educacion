@@ -40,4 +40,23 @@ export class TeachersComponent implements OnInit {
       this.students = students;
     });
   }
+
+  removeStudent(studentId: string, courseId: string) {
+    this.studentsService.removeStudentFromCourse(studentId, courseId).subscribe(() => {
+      this.loadStudents(); // Refrescar la lista de estudiantes
+    });
+  }
+  
+  setGrade(studentId: string, courseId: string, grade: number) {
+    this.studentsService.updateStudentGrade(studentId, courseId, grade).subscribe(() => {
+      alert('Nota actualizada correctamente');
+    });
+  }
+  
+  markAttendance(studentId: string, courseId: string, status: 'Presente' | 'Ausente') {
+    this.studentsService.markAttendance(studentId, courseId, status).subscribe(() => {
+      alert('Asistencia registrada correctamente');
+    });
+  }
+  
 }
